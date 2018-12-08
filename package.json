@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/LarryKameZhao/v-parts/issues"
   },
-  "homepage": "https://github.com/LarryKameZhao/v-parts#readme"
+  "homepage": "https://github.com/LarryKameZhao/v-parts#readme",
+  "dependencies": {
+    "vue": "^2.5.18"
+  }
 }
