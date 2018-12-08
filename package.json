@@ -1,0 +1,19 @@
+{
+  "name": "v-parts",
+  "version": "1.0.0",
+  "description": "a parts library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LarryKameZhao/v-parts.git"
+  },
+  "author": "SSS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LarryKameZhao/v-parts/issues"
+  },
+  "homepage": "https://github.com/LarryKameZhao/v-parts#readme"
+}
