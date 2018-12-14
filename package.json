@@ -18,5 +18,8 @@
   "homepage": "https://github.com/LarryKameZhao/v-parts#readme",
   "dependencies": {
     "vue": "^2.5.18"
+  },
+  "devDependencies": {
+    "parcel-bundler": "^1.10.3"
   }
 }
