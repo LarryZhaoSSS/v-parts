@@ -17,9 +17,16 @@
   },
   "homepage": "https://github.com/LarryKameZhao/v-parts#readme",
   "dependencies": {
-    "vue": "^2.5.18"
+    "vue": "^2.5.18",
+    "vue-hot-reload-api": "^2.3.1"
   },
   "devDependencies": {
-    "parcel-bundler": "^1.10.3"
+    "@vue/component-compiler-utils": "^2.3.1",
+    "parcel-bundler": "^1.10.3",
+    "sass": "^1.15.2",
+    "vue-template-compiler": "^2.5.21"
+  },
+  "alias": {
+    "vue" : "./node_modules/vue/dist/vue.common.js"
   }
 }
