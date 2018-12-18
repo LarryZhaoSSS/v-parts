@@ -23,6 +23,7 @@ export default {
         display: inline-flex;
         justify-content: center;
         align-items: center;
+        vertical-align: middle;
          &:hover{
         border-color: var(--border-color-hover);
       }
@@ -37,10 +38,13 @@ export default {
       }
       >.icon {
         order:1;
+        margin-right: .1em;
         }
       &.icon-right {
         > .icon{
           order:2;
+          margin-left: .1em;
+          margin-right:0;
         }
         >.content{
           order:1;

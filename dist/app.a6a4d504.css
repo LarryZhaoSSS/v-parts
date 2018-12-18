@@ -9,6 +9,7 @@
   display: inline-flex;
   justify-content: center;
   align-items: center;
+  vertical-align: middle;
 }
 .g-button[data-v-3c113d]:hover {
   border-color: var(--border-color-hover);
@@ -24,9 +25,12 @@
 }
 .g-button > .icon[data-v-3c113d] {
   order: 1;
+  margin-right: 0.1em;
 }
 .g-button.icon-right > .icon[data-v-3c113d] {
   order: 2;
+  margin-left: 0.1em;
+  margin-right: 0;
 }
 .g-button.icon-right > .content[data-v-3c113d] {
   order: 1;
