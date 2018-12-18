@@ -3,9 +3,12 @@
   height: var(--button-height);
   padding: 0 1em;
   font: inherit;
-  border-radius: var(--border-radius);
+  border-radius: var(--button-radius);
   border: 1px solid var(--border-color);
   background: var(--button-bg);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 }
 .g-button[data-v-3c113d]:hover {
   border-color: var(--border-color-hover);
@@ -15,4 +18,16 @@
 }
 .g-button[data-v-3c113d]:focus {
   outline: none;
+}
+.g-button > .content[data-v-3c113d] {
+  order: 2;
+}
+.g-button > .icon[data-v-3c113d] {
+  order: 1;
+}
+.g-button.icon-right > .icon[data-v-3c113d] {
+  order: 2;
+}
+.g-button.icon-right > .content[data-v-3c113d] {
+  order: 1;
 }
