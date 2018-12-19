@@ -34,4 +34,7 @@
 }
 .g-button.icon-right > .content[data-v-3c113d] {
   order: 1;
+}.g-icon {
+  width: 1em;
+  height: 1em;
 }
