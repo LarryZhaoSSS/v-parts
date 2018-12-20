@@ -54,6 +54,8 @@
 }
 .g-button-group > .g-button[data-v-e7a02c] {
   border-radius: 0;
+}
+.g-button-group > .g-button[data-v-e7a02c]:not(:first-child) {
   margin-left: -1px;
 }
 .g-button-group > .g-button[data-v-e7a02c]:first-child {
