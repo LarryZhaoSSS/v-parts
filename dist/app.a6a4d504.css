@@ -8,11 +8,11 @@
   background: var(--button-bg);
 }
 .g-button[data-v-3c113d]:hover {
-  border-color: var(--border-color-hover);
+    border-color: var(--border-color-hover);
 }
 .g-button[data-v-3c113d]:hover {
-  background-color: var(--button-active-bg);
+    background-color: var(--button-active-bg);
 }
 .g-button[data-v-3c113d]:focus {
-  outline: none;
+    outline: none;
 }
