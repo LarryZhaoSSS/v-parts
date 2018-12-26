@@ -28,8 +28,6 @@
 .g-button[data-v-3c113d]:focus {
     outline: none;
 }
-<<<<<<< HEAD
-=======
 .g-button > .content[data-v-3c113d] {
     order: 2;
 }
@@ -73,4 +71,3 @@
       position: relative;
       z-index: 1;
 }
->>>>>>> g-butto

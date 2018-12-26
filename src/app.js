@@ -16,6 +16,8 @@ new Vue({
 
 //unit test
 import chai from 'chai'
+import spies from 'chai-spies'
+chai.use(spies)
 const expect = chai.expect
 {
   const Constructor = Vue.extend(Button)
@@ -89,9 +91,9 @@ const expect = chai.expect
     }
   })
   gButton.$mount()
-  gButton.$on('click', function (){
-    console.log(button)
-  })
+  let spy = chai.spy(function(){})
+  gButton.$on('click', spy)
   let button = gButton.$el
   button.click()
+  expect(spy).to.have.been.called()
 }
