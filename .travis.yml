@@ -6,4 +6,4 @@ addons:
 sudo: required
 before_script:
   - "sudo chown root /opt/google/chrome/chrome-sandbox"
-  - "sudo chmod 4755 /opt/chrome/chrome-sandbox"
+  - "sudo chmod 777 /opt/chrome/chrome-sandbox"
