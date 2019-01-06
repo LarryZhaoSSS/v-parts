@@ -1,6 +1,6 @@
 {
   "name": "v-parts",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "a parts library",
   "main": "index.js",
   "scripts": {
