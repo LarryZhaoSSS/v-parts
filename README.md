@@ -1,7 +1,7 @@
 # A vue parts library that I used in daily work.
 
 by SSS
-
+[![Build Status](https://www.travis-ci.org/LarryKameZhao/v-parts.svg?branch=g-butto)](https://www.travis-ci.org/LarryKameZhao/v-parts)
 ## 介绍
 
 ## 开始使用
