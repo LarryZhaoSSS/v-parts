@@ -4,6 +4,7 @@
   "description": "a parts library",
   "main": "dist/index.js",
   "scripts": {
+    "start": "npx parcel index.html --no-cache",
     "test1": "echo \"Error: no test specified\" && exit 1",
     "dev-test": "parcel index.html watch test/* --no-cache & karma start",
     "test": "parcel build index.html test/* --no-minify && karma start --single-run"  
