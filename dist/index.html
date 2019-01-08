@@ -33,23 +33,35 @@
       width: 1em;
       height: 1em;
     }</style>
+  <style>.box {
+      margin: 20px;
+    }</style>
 <link rel="stylesheet" href="/app.a6a4d504.css"></head>
 
 <body>
   <div id="app">
-    <g-button icon="setting">love js</g-button>
-    <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
-    <g-button icon="setting" iconposition="right">love js</g-button>
-    <g-button-group>
-      <g-button icon="left" iconposition="left">上一步 </g-button>
-      <g-button>more</g-button>
-      <g-button icon="right" iconposition="right">下一步</g-button>
-    </g-button-group>
-    <div id="test"></div>
+    <div class="box">
+        <g-button icon="setting">love js</g-button>
+        <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
+        <g-button icon="setting" iconposition="right">love js</g-button>
+        <g-button-group>
+          <g-button icon="left" iconposition="left">上一步 </g-button>
+          <g-button>more</g-button>
+          <g-button icon="right" iconposition="right">下一步</g-button>
+        </g-button-group>
+    </div>
+    <div class="box">
+      <g-input value="input1" disabled=""></g-input>
+      <g-input value="input22"></g-input>
+      <g-input value="input3" readonly=""></g-input>
+    </div>
+    <div class="box">
+        <g-input value="input4" error="不得少于5个子"></g-input>
+    </div>
+    <!--<div id="test"></div>-->
   </div>
   <script src="/vue.min.ee463479.js" charset="utf-8"></script>
   <script src="/app.a6a4d504.js"></script>
-  
 </body>
 
 </html>
