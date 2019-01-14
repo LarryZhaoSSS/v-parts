@@ -1,6 +1,11 @@
 <template>
   <div class="wrapper" :class="{error}">
-    <input :value="value" :disabled="disabled" :readonly="readonly" type="text">
+    <input :value="value" :disabled="disabled" :readonly="readonly" type="text" 
+    @change="$emit('change',$event)"
+    @focus="$emit('focus',$event)"
+    @blur="$emit('blur',$event)"
+    @input="$emit('input',$event)"
+    >
     <template v-if="error">
       <Icon  name="error" class="icon-error"></Icon>
       <span class="error-message">{{error}}</span>
@@ -37,7 +42,7 @@ $border-color: #999;
 $border-color-hover: #666;
 $border-radius: 4px;
 $font-size: 12px;
-$box-shadow-color: rgba(0, 0, 0, 0.5);
+$box-shadow-color: rgba(0, 0, 0, 0.2);
 $red:#f1453d;
 .wrapper {
   font-size: $font-size;
@@ -58,7 +63,7 @@ $red:#f1453d;
       border-color: $border-color-hover;
     }
     &:focus {
-      box-shadow: inside 0 1px 3px $box-shadow-color;
+      box-shadow: inside 0 0 1px 3px $box-shadow-color;
       outline: none;
     }
     &[disabled],
@@ -69,6 +74,7 @@ $red:#f1453d;
     }
   }
   &.error {
+    border:none;
     > input {
       border-color: #f1453d;
     }
