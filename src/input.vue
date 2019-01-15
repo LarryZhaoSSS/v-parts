@@ -1,13 +1,17 @@
 <template>
   <div class="wrapper" :class="{error}">
-    <input :value="value" :disabled="disabled" :readonly="readonly" type="text" 
-    @change="$emit('change',$event)"
-    @focus="$emit('focus',$event)"
-    @blur="$emit('blur',$event)"
-    @input="$emit('input',$event)"
+    <input
+      :value="value"
+      :disabled="disabled"
+      :readonly="readonly"
+      type="text"
+      @change="$emit('change', $event.target.value)"
+      @input="$emit('input', $event.target.value)"
+      @focus="$emit('focus', $event.target.value)"
+      @blur="$emit('blur', $event.target.value)"
     >
     <template v-if="error">
-      <Icon  name="error" class="icon-error"></Icon>
+      <Icon name="error" class="icon-error"></Icon>
       <span class="error-message">{{error}}</span>
     </template>
   </div>
@@ -43,16 +47,16 @@ $border-color-hover: #666;
 $border-radius: 4px;
 $font-size: 12px;
 $box-shadow-color: rgba(0, 0, 0, 0.2);
-$red:#f1453d;
+$red: #f1453d;
 .wrapper {
   font-size: $font-size;
   display: inline-flex;
   align-items: center;
   > * {
-      margin-right: .5em;
-      &:last-child{
-          margin-right: 0;
-      }
+    margin-right: 0.5em;
+    &:last-child {
+      margin-right: 0;
+    }
   }
   > input {
     height: $height;
@@ -74,16 +78,16 @@ $red:#f1453d;
     }
   }
   &.error {
-    border:none;
+    border: none;
     > input {
       border-color: #f1453d;
     }
   }
-  .icon-error{
-      fill:red;
+  .icon-error {
+    fill: red;
   }
-  .error-message{
-      color: $red;
+  .error-message {
+    color: $red;
   }
 }
 </style>

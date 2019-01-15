@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<testsuite name="HeadlessChrome 70.0.3538 (Linux 0.0.0)" package="" timestamp="2019-01-15T07:15:01" id="0" hostname="sss-PC" tests="12" errors="0" failures="0" time="0.024">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/70.0.3538.77 Safari/537.36"/>
+  </properties>
+  <testcase name="Button 存在." time="0" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Button"/>
+  <testcase name="Button 可以设置icon." time="0.006" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Button"/>
+  <testcase name="Button 可以设置loading." time="0.001" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Button"/>
+  <testcase name="Button icon 默认的 order 是 1" time="0.001" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Button"/>
+  <testcase name="Button 设置 iconPosition 可以改变 order" time="0.002" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Button"/>
+  <testcase name="Button 点击 button 触发 click 事件" time="0.001" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Button"/>
+  <testcase name="Input 存在." time="0" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Input"/>
+  <testcase name="Input props 接收VALUE" time="0.007" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Input"/>
+  <testcase name="Input props 接收 disabled" time="0.001" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Input"/>
+  <testcase name="Input props 接收 readonly" time="0.001" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Input"/>
+  <testcase name="Input props 接收 error" time="0.002" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Input"/>
+  <testcase name="Input 事件 支持 change/focus/blur/input 事件" time="0.002" classname="HeadlessChrome_70_0_3538_(Linux_0_0_0).Input"/>
+  <system-out>
+    <![CDATA[
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>
