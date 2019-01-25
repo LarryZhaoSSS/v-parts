@@ -13,7 +13,9 @@
         padding: 0;
         box-sizing: border-box;
       }
-
+      img {
+        max-width: 100%;
+      }
       :root {
         --button-height: 32px;
         --font-size: 14px;
@@ -76,23 +78,17 @@
         <g-input value="input4" error="不得少于5个子"></g-input>
       </div>
       <!--<div id="test"></div>-->
-
-      <g-row>
-        <g-col :span="2">1</g-col>
-        <g-col>2</g-col>
-        <g-col>7</g-col>
-        <g-col>6</g-col>
-      </g-row>   
-      <g-row gutter="20">
-        <g-col :span="2">1</g-col>
-        <g-col :span="20" :offset="2">2</g-col>
+ 
+      <g-row :gutter="60">
+        <g-col :span="9">1</g-col>
+        <g-col :span="15" >2</g-col>
       </g-row>
-      <g-row gutter="40">
+      <g-row gutter="50" :align="'left'">
         <g-col :span="1">1</g-col>
         <g-col :span="2">2</g-col>
         <g-col :span="3">3</g-col>
         <g-col :span="4">4</g-col>
-        <g-col :span="5" :offset="3">5</g-col>
+        <g-col :span="5">5</g-col>
       </g-row>
     
   </div>

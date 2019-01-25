@@ -15,19 +15,19 @@ export default {
     }
   },
   computed: {
-    colStyle () {
+    colStyle() {
       return {
         paddingLeft: this.gutter / 2 + 'px',
-        paddingRight: this.gutter /2  + 'px'
+        paddingRight: this.gutter / 2 + 'px'
       }
     },
-    colClass () {
+    colClass() {
       let { span, offset } = this
-      return [span && `col-${span}`, 
-              offset && `offset-${offset}`]
+      return [span && `col-${span}`,
+      offset && `offset-${offset}`]
     }
   },
-  data () {
+  data() {
     return {
       gutter: 0,
 
@@ -39,7 +39,8 @@ export default {
 .col {
   height: 100px;
   background: grey;
-  width: 50%;
+  /* margin-left: 20px; */
+  /* width: 50%; */
   border: 1px solid red;
   $class-prefix: col-;
   padding: 0 10px;
