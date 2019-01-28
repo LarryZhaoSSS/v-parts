@@ -56,22 +56,6 @@ export default {
       let phoneClass = []
       let createClasses = this.createClasses
       console.log('in class')
-      // console.log(phone)
-      // if (phone) {
-      //   phoneClass = [`col-phone-${phone.span}`]
-      //   // console.log(`phone-${phone.span}`)
-      //   console.log(...phoneClass)
-      // } else {
-      //   phoneClass = []
-      // }
-      // return [span && `col-${span}`,
-      // offset && `offset-${offset}`,
-      // ...(phone && [`col-phone-${phone.span}`]),
-      // ...(ipad && [`col-ipad-${ipad.span}`]),
-      // ...(narrowPc && [`col-narrowPc-${narrowPc.sapn}`]),
-      // ... (pc && [`col-pc-${pc.san}`]),
-      // ...(widePc && [`col-widePc-${widePc}`])
-      // ]
        return [
           ...createClasses({span, offset}),
           ...createClasses(ipad, 'ipad-'),
