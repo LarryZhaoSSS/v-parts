@@ -37,9 +37,17 @@
     <style>.box {
         margin: 20px;
       }
-      .demo {
-        min-height: 100px;
-        border: 1px solid red;
+      .sider {
+        background: blue;
+        width: 200px;
+      }
+      .header{
+        background: red;
+        height: 100px;
+      }
+      .footer{
+        background: yellow;
+        height: 50px;
       }</style>
   <link rel="stylesheet" href="/app.a6a4d504.css"></head>
 
@@ -72,24 +80,30 @@
       <div class="box">
         <g-input value="input4" error="不得少于5个子"></g-input>
       </div> -->
-      
- 
+
       <!-- <g-row :gutter="60">
         <g-col :span="6"  :ipad="{span:12}" :narrowPc="{span:4}" :pc="{span:12}" :widePc="{span:10}">1</g-col>
         <g-col :span="18"  :ipad="{span:12}" :narrowPc="{span:20}" :pc="{span:12}" :widePc="{span:14}" >2</g-col>
       </g-row> -->
 
-
       <g-layout style="height:100vh;">
-        <g-header class="demo">header</g-header>
+        <g-header>header</g-header>
         <g-layout>
           <g-sider>sider</g-sider>
-          <g-content class="demo">content</g-content>
+          <g-content>content</g-content>
         </g-layout>
-        <g-footer class="demo">footer</g-footer>
+        <g-footer>footer</g-footer>
       </g-layout>
-     
-  </div>
+
+      <g-layout style="height:100vh;">
+        <g-sider>sider</g-sider>
+        <g-layout>
+          <g-header>header</g-header>
+          <g-content>content</g-content>
+          <g-footer>footer</g-footer>
+        </g-layout>
+      </g-layout>
+    </div>
     <script src="/vue.min.ee463479.js" charset="utf-8"></script>
     <script src="/app.a6a4d504.js"></script>
   </body>
