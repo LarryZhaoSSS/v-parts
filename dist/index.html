@@ -36,47 +36,59 @@
       }</style>
     <style>.box {
         margin: 20px;
+      }
+      .demo {
+        min-height: 100px;
+        border: 1px solid red;
       }</style>
   <link rel="stylesheet" href="/app.a6a4d504.css"></head>
 
   <body>
     <div id="app">
-      <div class="box">
+      <!-- <div class="box">
         <g-button icon="setting">love js</g-button>
-        <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
+        <g-button
+          icon="setting"
+          :loading="isLoading"
+          @click="isLoading = !isLoading"
+          >js love</g-button
+        >
         <g-button icon="setting" iconposition="right">love js</g-button>
         <g-button-group>
           <g-button icon="left" iconposition="left">上一步 </g-button>
           <g-button>more</g-button>
           <g-button icon="right" iconposition="right">下一步</g-button>
         </g-button-group>
-      </div>
-      <div class="box">
-        <g-input value="input1" disabled=""></g-input>
-        <g-input value="input22" v-model="message" @change="inputChange"></g-input>
-        <g-input value="input3" readonly=""></g-input>
+      </div> -->
+      <!-- <div class="box">
+        <g-input value="input1" disabled></g-input>
+        <g-input
+          value="input22"
+          v-model="message"
+          @change="inputChange"
+        ></g-input>
+        <g-input value="input3" readonly></g-input>
       </div>
       <div class="box">
         <g-input value="input4" error="不得少于5个子"></g-input>
-      </div>
-      <!--<div id="test"></div>-->
+      </div> -->
+      
  
-      <g-row :gutter="60">
-        <g-col :span="6" :ipad="{span:12}" :narrowpc="{span:4}" :pc="{span:12}" :widepc="{span:10}">1</g-col>
-        <g-col :span="18" :ipad="{span:12}" :narrowpc="{span:20}" :pc="{span:12}" :widepc="{span:14}">2</g-col>
-      </g-row>
       <!-- <g-row :gutter="60">
-        <g-col :span="2" :phone="{span:12}" >3</g-col>
-        <g-col :span="22" :phone="{span:12}">4</g-col>
+        <g-col :span="6"  :ipad="{span:12}" :narrowPc="{span:4}" :pc="{span:12}" :widePc="{span:10}">1</g-col>
+        <g-col :span="18"  :ipad="{span:12}" :narrowPc="{span:20}" :pc="{span:12}" :widePc="{span:14}" >2</g-col>
       </g-row> -->
-      <!-- <g-row gutter="50" :align="'left'">
-        <g-col :span="4" >1</g-col>
-        <g-col :span="4">2</g-col>
-        <g-col :span="4">3</g-col>
-        <g-col :span="4">4</g-col>
-        <g-col :span="8">5</g-col>
-      </g-row> -->
-    
+
+
+      <g-layout style="height:100vh;">
+        <g-header class="demo">header</g-header>
+        <g-layout>
+          <g-sider>sider</g-sider>
+          <g-content class="demo">content</g-content>
+        </g-layout>
+        <g-footer class="demo">footer</g-footer>
+      </g-layout>
+     
   </div>
     <script src="/vue.min.ee463479.js" charset="utf-8"></script>
     <script src="/app.a6a4d504.js"></script>

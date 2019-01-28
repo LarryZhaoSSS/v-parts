@@ -5,7 +5,7 @@
 </template>
 <script>
 export default {
-  name: 'VPartsRow',
+  name: 'VpartsRow',
   props: {
     gutter: {
       type: [Number, String]
