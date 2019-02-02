@@ -1,7 +1,10 @@
 <template>
-  <div class="toast">
-    <slot></slot>
-    <div class="line"></div>
+  <div class="toast" ref="toast">
+    <div class="message">
+      <slot v-if="!enableHtml"></slot>
+      <div v-else v-html="$slots.default[0]"></div>
+    </div>
+    <div class="line" ref="line"></div>
     <span class="closed" v-if="closeButton" @click="onClickClose">{{closeButton.text}}</span>
   </div>
 </template>
@@ -23,19 +26,33 @@ export default {
         text: '关闭',
         callback: undefined
       })
+    },
+    enableHtml: {
+      type: Boolean,
+      default: false
     }
   },
   mounted() {
-    if (this.autoClose) {
-      setTimeout(() => {
-        this.close()
-      }, this.autoCloseDelay * 1000)
-    }
+    this.execAutoClose()
+    this.updateStyles()
   },
   created() {
     console.log(this.closeButton)
   },
   methods: {
+    execAutoClose() {
+      if (this.autoClose) {
+        setTimeout(() => {
+          this.close()
+        }, this.autoCloseDelay * 1000)
+      }
+    },
+    updateStyles() {
+      this.$nextTick(() => {
+        let toastHeight = this.$refs.toast.getBoundingClientRect().height
+        this.$refs.line.style.height = `${toastHeight}px`
+      })
+    },
     close() {
       this.$el.remove()
       this.$destroy()
@@ -46,7 +63,7 @@ export default {
         this.closeButton.callback(this)
       }
     },
-    mylog () {
+    mylog() {
       console.log('this log my')
     }
   }
@@ -54,7 +71,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 $font-size: 16px;
-$toast-height: 40px;
+$toast-min-height: 40px;
 $toast-bg: black;
 .toast {
   color: #fff;
@@ -64,21 +81,25 @@ $toast-bg: black;
   transform: translateX(-50%);
   font-size: $font-size;
   line-height: 1.8;
-  height: $toast-height;
+  min-height: $toast-min-height;
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.75);
   box-shadow: 0 0 3 0 rgba(0, 0, 0, 0.5);
   border-radius: 4px;
-  padding: 0 16px;
-}
-.closed {
-  padding-left: 16px;
-  cursor: pointer;
-}
-.line {
-  height: 100%;
-  border-left: 3px solid #666;
-  margin-left: 16px;
+  padding: 0px 16px;
+  flex-shrink: 0;
+  .message{
+    padding: 8px 0;
+  }
+  .closed {
+    padding-left: 16px;
+    cursor: pointer;
+  }
+  .line {
+    height: 100%;
+    border-left: 3px solid #666;
+    margin-left: 16px;
+  }
 }
 </style>

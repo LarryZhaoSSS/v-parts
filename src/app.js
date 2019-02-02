@@ -46,14 +46,15 @@ new Vue({
       console.log(e)
     },
     showToast () {
-      this.$toast('laiba toast', {
+      this.$toast('<strong>laiba toast</strong>', {
         closeButton: {
-          text: '知道了哦',
+          text: '我知道了',
           callback (toast) {
             console.log('用户说知道了')
             toast.mylog()
           }
-        }
+        },
+        enableHtml: true
       })
     }
   },
