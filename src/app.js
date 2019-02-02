@@ -39,13 +39,22 @@ new Vue({
     //   let inputElement = this.$el.querySelector("input")
     //   inputElement.dispatchEvent(event)
     // }, 3000)
+    
   },
   methods: {
     inputChange(e) {
       console.log(e)
     },
     showToast () {
-      this.$toast('laiba toast')
+      this.$toast('laiba toast', {
+        closeButton: {
+          text: '知道了哦',
+          callback (toast) {
+            console.log('用户说知道了')
+            toast.mylog()
+          }
+        }
+      })
     }
   },
 })
