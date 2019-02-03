@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper" :class="toastClasses">
-    <div class="toast" ref="toast" >
+    <div class="toast" ref="toast">
       <div class="message">
         <slot v-if="!enableHtml"></slot>
         <div v-else v-html="$slots.default[0]"></div>
@@ -14,14 +14,17 @@
 export default {
   name: 'VpartsToast',
   computed: {
-    toastClasses () {
-      return {[`position-${this.position}`]: true}
+    toastClasses() {
+      return { [`position-${this.position}`]: true }
     }
   },
   props: {
     autoClose: {
-      type: Boolean,
-      default: true
+      type: [Boolean, Number],
+      default: 5,
+      validator(value) {
+        return value === false || typeof value === 'number'
+      }
     },
     autoCloseDelay: {
       type: Number,
@@ -41,7 +44,7 @@ export default {
     position: {
       type: String,
       default: 'top',
-      validator (value) {
+      validator(value) {
         return ['top', 'bottom', 'middle'].indexOf(value) >= 0
       }
     }
@@ -90,16 +93,32 @@ $toast-min-height: 40px;
 $toast-bg: black;
 $animation-duration: 0.3s;
 @keyframes slide-up {
-  0%{opacity: 0; transform: translateY(100%);}
-  100%{opacity: 1;transform: translateY(0%);}
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
 }
 @keyframes slide-down {
-  0%{opacity: 0; transform: translateY(-100%);}
-  100%{opacity: 1;transform: translateY(0%);}
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
 }
 @keyframes fade-in {
-  0%{opacity: 0; }
-  100%{opacity: 1;}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .wrapper {
   position: fixed;
@@ -121,10 +140,10 @@ $animation-duration: 0.3s;
       border-bottom-right-radius: 0;
     }
   }
-  &.position-middle{
+  &.position-middle {
     top: 50%;
     transform: translateX(-50%) translateY(-50%);
-    .toast{
+    .toast {
       animation: fade-in $animation-duration;
     }
   }
@@ -141,7 +160,7 @@ $animation-duration: 0.3s;
   border-radius: 4px;
   padding: 0px 16px;
   flex-shrink: 0;
-  .message{
+  .message {
     padding: 8px 0;
   }
   .closed {

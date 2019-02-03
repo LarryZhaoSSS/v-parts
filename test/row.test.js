@@ -27,8 +27,8 @@ describe('Row', () => {
     setTimeout(()=>{
       console.log(vm.$el.outerHTML)
       const cols = vm.$el.querySelectorAll('.col')
-      console.log(cols)
-      console.log('------')
+      // console.log(cols)
+      // console.log('------')
       const row = vm.$el.querySelectorAll('.row')
       console.log(row[0])
       expect(getComputedStyle(row[0]).marginLeft).to.eq('-10px')

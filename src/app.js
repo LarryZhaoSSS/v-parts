@@ -56,7 +56,7 @@ new Vue({
         },
         enableHtml: true,
         position: 'top',
-        autoClose: false
+        autoClose: 1
       })
     }
   },
