@@ -67,6 +67,7 @@ export default {
     },
     close() {
       this.$el.remove()
+      this.$emit('close')
       this.$destroy()
     },
     onClickClose() {
@@ -85,7 +86,12 @@ export default {
 $font-size: 16px;
 $toast-min-height: 40px;
 $toast-bg: black;
+@keyframes fade-in {
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
 .toast {
+  animation: fade-in 1s;
   color: #fff;
   position: fixed;
   left: 50%;
