@@ -39,7 +39,7 @@ new Vue({
     //   let inputElement = this.$el.querySelector("input")
     //   inputElement.dispatchEvent(event)
     // }, 3000)
-    
+
   },
   methods: {
     inputChange(e) {
@@ -54,7 +54,9 @@ new Vue({
             toast.mylog()
           }
         },
-        enableHtml: true
+        enableHtml: true,
+        position: 'middle',
+        autoClose: false
       })
     }
   },

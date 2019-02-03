@@ -1,5 +1,5 @@
 <template>
-  <div class="toast" ref="toast">
+  <div class="toast" ref="toast" :class="toastClasses">
     <div class="message">
       <slot v-if="!enableHtml"></slot>
       <div v-else v-html="$slots.default[0]"></div>
@@ -11,6 +11,11 @@
 <script>
 export default {
   name: 'VpartsToast',
+  computed: {
+    toastClasses () {
+      return {[`position-${this.position}`]: true}
+    }
+  },
   props: {
     autoClose: {
       type: Boolean,
@@ -30,6 +35,13 @@ export default {
     enableHtml: {
       type: Boolean,
       default: false
+    },
+    position: {
+      type: String,
+      default: 'top',
+      validator (value) {
+        return ['top', 'bottom', 'middle'].indexOf(value) >= 0
+      }
     }
   },
   mounted() {
@@ -76,16 +88,14 @@ $toast-bg: black;
 .toast {
   color: #fff;
   position: fixed;
-  top: 0;
   left: 50%;
-  transform: translateX(-50%);
   font-size: $font-size;
   line-height: 1.8;
   min-height: $toast-min-height;
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.75);
-  box-shadow: 0 0 3 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);
   border-radius: 4px;
   padding: 0px 16px;
   flex-shrink: 0;
@@ -100,6 +110,18 @@ $toast-bg: black;
     height: 100%;
     border-left: 3px solid #666;
     margin-left: 16px;
+  }
+  &.position-top {
+    top: 0;
+    transform: translateX(-50%);
+  }
+  &.position-bottom {
+    bottom: 0;
+    transform: translateX(-50%);
+  }
+  &.position-middle{
+    top: 50%;
+    transform: translate(-50%,-50%);
   }
 }
 </style>
