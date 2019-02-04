@@ -50,11 +50,10 @@ export default {
     }
   },
   mounted() {
-    this.execAutoClose()
     this.updateStyles()
+    this.execAutoClose()
   },
   created() {
-    console.log(this.closeButton)
   },
   methods: {
     execAutoClose() {

@@ -23,19 +23,19 @@ describe('Row', () => {
     const vm = new Vue({
       el: div
     })
-    console.log(vm.$el.outerHTML)
+    // console.log(vm.$el.outerHTML)
     setTimeout(()=>{
-      console.log(vm.$el.outerHTML)
+      // console.log(vm.$el.outerHTML)
       const cols = vm.$el.querySelectorAll('.col')
       // console.log(cols)
       // console.log('------')
       const row = vm.$el.querySelectorAll('.row')
-      console.log(row[0])
+      // console.log(row[0])
       expect(getComputedStyle(row[0]).marginLeft).to.eq('-10px')
       expect(getComputedStyle(row[0]).marginRight).to.eq('-10px')
       expect(getComputedStyle(cols[0]).paddingRight).to.eq('10px')
       expect(getComputedStyle(cols[1]).paddingLeft).to.eq('10px')
-      console.log('页面mounted结束')
+      // console.log('页面mounted结束')
       done()
       vm.$el.remove()
       vm.$destroy()

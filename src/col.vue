@@ -55,7 +55,7 @@ export default {
       let { span, offset, phone, ipad, narrowPc, pc, widePc } = this
       let phoneClass = []
       let createClasses = this.createClasses
-      console.log('in class')
+      // console.log('in class')
        return [
           ...createClasses({span, offset}),
           ...createClasses(ipad, 'ipad-'),
@@ -77,8 +77,8 @@ export default {
       let array = []
       if (obj.span) { array.push(`col-${str}${obj.span}`) }
       if (obj.offset) { array.push(`offset-${str}${obj.offset}`) }
-      console.log('class------------')
-      console.log(array)
+      // console.log('class------------')
+      // console.log(array)
       return array
     }
   }

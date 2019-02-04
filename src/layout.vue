@@ -14,7 +14,7 @@ export default {
     }
   },
   mounted () {
-    console.log(this.$children)
+    // console.log(this.$children)
     this.$children.forEach((vm)=>{
       if(vm.$options.name === 'VpartsSider') {
         this.layoutClass.hasSider =  true
