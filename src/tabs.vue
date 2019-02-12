@@ -33,7 +33,17 @@ export default {
   created () {
     // this.$emit('update:selected')
   },
-  mountend () {
+  mounted () {
+    this.$children.forEach((vm)=>{
+      if (vm.$options.name === 'VpartsTabsHead') {
+        vm.$children.forEach((item)=>{
+          if (item.$options.name === 'VpartsTabsItem' && item.name === this.selected) {
+            console.log(item.$el)
+            this.eventBus.$emit('update:selected', this.selected, item)
+          }
+        })
+      }
+    })
   }
 }
 </script>
