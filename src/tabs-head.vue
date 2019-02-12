@@ -11,8 +11,12 @@
 export default {
   name: 'VpartsTabsHead',
   inject: ['eventBus'],
-  created() {
-    
+  mounted() {
+    this.eventBus.$on('update:selected', (name, vm) => {
+      let { height, width, top, left } = vm.$el.getBoundingClientRect()
+      // console.log(left)
+      this.$refs.line.style.width = `${width}px`
+      this.$refs.line.style.left = `${left-50}px`    })
   }
 }
 </script>
@@ -27,8 +31,8 @@ $blue: blue;
   > .line {
     position: absolute;
     bottom: 0;
-    width: 100px;
-    border-bottom:1px solid $blue;
+    border-bottom: 1px solid $blue;
+    transition: all 0.35s;
   }
   > .actions-wrapper {
     margin-left: auto;

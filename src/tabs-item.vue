@@ -30,17 +30,17 @@ export default {
   },
   inject: ['eventBus'],
   created() {
-    this.eventBus.$on('update:selected', (name) => {
+    this.eventBus.$on('update:selected', (name, vm) => {
       this.active = name === this.name
     })
   },
   mounted() {
-    this.eventBus.$emit('update:selected', this.name)
+    // this.eventBus.$emit('update:selected', this.name)
 
   },
   methods: {
     xxx() {
-      this.eventBus.$emit('update:selected', this.name)
+      this.eventBus.$emit('update:selected', this.name,this)
     }
   }
 }

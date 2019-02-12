@@ -38,7 +38,8 @@ export default {
       if (vm.$options.name === 'VpartsTabsHead') {
         vm.$children.forEach((item)=>{
           if (item.$options.name === 'VpartsTabsItem' && item.name === this.selected) {
-            console.log(item.$el)
+            // console.log(item.$el)
+            // console.log('itemmm')
             this.eventBus.$emit('update:selected', this.selected, item)
           }
         })
