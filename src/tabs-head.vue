@@ -6,7 +6,12 @@
 </template>
 <script>
 export default {
-  name: 'VpartsTabsHead'
+  name: 'VpartsTabsHead',
+  inject: ['eventBus'],
+  created () {
+    console.log('ye ye gei')
+    console.log(this.eventBus)
+  }
 }
 </script>
 <style lang="scss" scoped>

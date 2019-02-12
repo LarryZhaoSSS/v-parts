@@ -5,10 +5,11 @@
 </template>
 <script>
 export default {
-  name: 'VpartsTabsBody'
+  name: 'VpartsTabsBody',
+  inject: ['eventBus'],
+
 }
 </script>
 <style lang="scss" scoped>
-
 </style>
 
