@@ -1,5 +1,5 @@
 <template>
-  <div class="tabs-item" @click="xxx">
+  <div class="tabs-item" @click="xxx" :class="classes">
     <slot></slot>
   </div>
 </template>
@@ -16,22 +16,46 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      active: false
+    }
+  },
+  computed: {
+    classes () {
+      return {
+        active: this.active
+      }
+    }
+  },
   inject: ['eventBus'],
-  created () {
-    console.log('sunzi')
-    console.log(this.eventBus)
-    this.eventBus.$on('update:selected', (name)=>{
-      console.log(name)
+  created() {
+    this.eventBus.$on('update:selected', (name) => {
+      this.active = name === this.name
     })
   },
+  mounted() {
+    this.eventBus.$emit('update:selected', this.name)
+
+  },
   methods: {
-    xxx () {
+    xxx() {
       this.eventBus.$emit('update:selected', this.name)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-
+.tabs-item {
+  flex-shrink: 0;
+  padding: 0 2em;
+  cursor: pointer;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  &.active {
+    background: red;
+  }
+}
 </style>
 
