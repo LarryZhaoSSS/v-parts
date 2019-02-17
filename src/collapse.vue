@@ -17,26 +17,31 @@ export default {
       type: String
     }
   },
-  data () {
+  data() {
     return {
       eventBus: new Vue
     }
   },
-  provide () {
-    if (!this.single) {return}
+  provide() {
+    if (!this.single) { return }
     return {
       eventBus: this.eventBus
     }
   },
-  mounted () {
+  mounted() {
     this.eventBus.$emit('update:selected', this.selected)
+    this.eventBus.$on('update:selected', (name) => {
+      this.$emit('update:selected', name)
+
+    })
+    // this.$emit('update:selected', this.selected)
   }
-  
+
 }
 </script>
 
 <style lang="scss" scoped>
-$grey : #ddd;
+$grey: #ddd;
 $border-radius: 4px;
 .collapse {
   border: 1px solid grey;
