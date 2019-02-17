@@ -45,7 +45,9 @@ new Vue({
     return {
       isLoading: true,
       message: "hi",
-      selectedTab: 'sports'
+      selectedTab: 'sports',
+      selectedTabs: ['1','2'],
+      singleTabs:['1']
     }
   },
   created() {
