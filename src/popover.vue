@@ -1,7 +1,7 @@
 <template>
-  <div class="popover" @click="xxx">
-    <div class="content-wrapper" v-if="visible">
-      <slot name="content" ></slot>
+  <div class="popover" @click.stop="xxx">
+    <div class="content-wrapper" v-if="visible" @click.stop>
+      <slot name="content"></slot>
     </div>
     <slot></slot>
   </div>
@@ -17,6 +17,16 @@ export default {
   methods: {
     xxx() {
       this.visible = !this.visible
+      if (this.visible === true) {
+        this.$nextTick(() => {
+          let eventHandler = () => {
+            this.visible = false
+            document.removeEventListener('click', eventHandler)
+          }
+          document.addEventListener('click', eventHandler)
+        })
+
+      }
     }
   }
 }
@@ -31,7 +41,7 @@ export default {
     bottom: 100%;
     left: 0;
     border: 1px solid red;
-    box-shadow: 0 0 3px rgba(0,0,0,.5);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
   }
 }
 </style>
