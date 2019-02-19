@@ -24,8 +24,8 @@ export default {
           document.body.appendChild(this.$refs.contentWrapper)
           let { width, height, top, left } = this.$refs.triggerWrapper.getBoundingClientRect()
           console.log(width, height, top, left)
-          this.$refs.contentWrapper.style.left = left + 'px'
-          this.$refs.contentWrapper.style.top = top + 'px'
+          this.$refs.contentWrapper.style.left = left + window.scrollX + 'px'
+          this.$refs.contentWrapper.style.top = top + window.scrollY  + 'px'
           this.$refs.contentWrapper.style.width = width + 'px'
           this.$refs.contentWrapper.style.height =  height + 'px'
           let eventHandler = () => {
