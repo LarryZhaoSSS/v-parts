@@ -163,9 +163,12 @@
         </g-popover>
 
         <g-popover position="left">
-            <template slot="content">
+            <template slot="content" slot-scope="{close}">
               <div>popover content
-                  
+                  <div>
+                    <a href="http://qq.com">qqq</a>
+                  </div>
+                  <g-button @click="close">点我关闭</g-button>
               </div>
             </template>
               <g-button>click left</g-button> 
