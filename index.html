@@ -153,7 +153,7 @@
         <g-collapse-item title="标题3" name="3">内容3</g-collapse-item>
       </g-collapse> -->
       
-      <g-popover>
+      <g-popover position="bottom">
         <template slot="content">
           <div>popover contentpopover contentpopover contentpopover contentpopover contentpopover contentpopover content
               contentpopover contentpopover contentpopover contentpopover contentpopover content
@@ -161,6 +161,69 @@
         </template>
           <g-button>click me</g-button> 
       </g-popover>
+
+      <g-popover position="top">
+          <template slot="content">
+            <div>popover contentpopover contentpopover contentpopover contentpopover contentpopover contentpopover content
+                contentpopover contentpopover contentpopover contentpopover contentpopover content
+            </div>
+          </template>
+            <g-button>click me</g-button> 
+        </g-popover>
+
+        <g-popover  position="left">
+            <template slot="content">
+              <div>popover content
+                  
+              </div>
+            </template>
+              <g-button>click left</g-button> 
+          </g-popover>
+
+          <g-popover  position="right">
+              <template slot="content">
+                <div>popover content
+                    
+                </div>
+              </template>
+                <g-button>click right</g-button> 
+            </g-popover>
+
+            <g-popover position="bottom" trigger="hover">
+                <template slot="content">
+                  <div>popover contentpopover contentpopover contentpopover contentpopover contentpopover contentpopover content
+                      contentpopover contentpopover contentpopover contentpopover contentpopover content
+                  </div>
+                </template>
+                  <g-button>hover bottom</g-button> 
+              </g-popover>
+        
+              <g-popover position="top" trigger="hover">
+                  <template slot="content">
+                    <div>popover contentpopover contentpopover contentpopover contentpopover contentpopover contentpopover content
+                        contentpopover contentpopover contentpopover contentpopover contentpopover content
+                    </div>
+                  </template>
+                    <g-button>hover top</g-button> 
+                </g-popover>
+        
+                <g-popover  position="left" trigger="hover">
+                    <template slot="content">
+                      <div>popover content
+                          
+                      </div>
+                    </template>
+                      <g-button>hover left</g-button> 
+                  </g-popover>
+        
+                  <g-popover  position="right" trigger="hover">
+                      <template slot="content">
+                        <div>popover content
+                            
+                        </div>
+                      </template>
+                        <g-button>hover right</g-button> 
+                    </g-popover>
 
     </div>
     <script src="./node_modules/vue/dist/vue.min.js" charset="utf-8"></script>
