@@ -1,10 +1,9 @@
 <template>
       <button class="g-button" :class="{[`icon-${iconposition}`]:true}"
       @click="$emit('click')">
-        <!-- <svg v-if="icon" class="icon"><use :xlink:href="`#i-${icon}`"></use></svg> -->
         <g-icon class="icon" v-if="icon && !loading" :name="icon"></g-icon>
-        <g-icon class="loading icon" v-if="loading" name="loading"></g-icon>
-        <div class="content">
+        <g-icon class="g-loading icon" v-if="loading" name="loading"></g-icon>
+        <div class="g-content">
           <slot></slot>
         </div>
       </button>
@@ -12,8 +11,10 @@
 <script>
 import Vue from 'vue'
 import Icon from './icon'
-Vue.component('g-icon', Icon)
 export default {
+  components: {
+    'g-icon': Icon
+  },
   props: {
     icon:{},
     loading: {
@@ -64,7 +65,7 @@ $border-color-hover: #666;
       &:focus{
         outline: none;
       }
-      >.content{
+      >.g-content{
         order:2;
       }
       >.icon {
@@ -77,11 +78,11 @@ $border-color-hover: #666;
           margin-left: .1em;
           margin-right:0;
         }
-        >.content{
+        >.g-content{
           order:1;
         }
       }
-      .loading {
+      .g-loading {
         animation: spin 2s infinite linear;
       }
   }
