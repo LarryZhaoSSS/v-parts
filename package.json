@@ -1,6 +1,6 @@
 {
   "name": "v-parts",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "a parts library",
   "main": "dist/index.js",
   "scripts": {
@@ -44,7 +44,8 @@
     "sinon": "^7.2.2",
     "sinon-chai": "^3.3.0",
     "vue-template-compiler": "^2.5.22",
-    "vuepress": "^0.14.9"
+    "vuepress": "^0.14.9",
+    "vue-server-render": "^2.5.22"
   },
   "alias": {
     "vue": "./node_modules/vue/dist/vue.common.js"
