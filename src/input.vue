@@ -60,7 +60,7 @@ $red: #f1453d;
   }
   > input {
     height: $height;
-    border-color: $border-color;
+    border: 1px solid $border-color;
     border-radius: $border-radius;
     padding: 0 8px;
     &:hover {
