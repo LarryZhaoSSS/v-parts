@@ -1,5 +1,10 @@
 <template>
   <div>
+    <v-layout style="color: white; margin-bottom:50px;">
+      <v-header style="height: 50px; background:lightskyblue;">header</v-header>
+      <v-content style="height: 100px; background:deepskyblue;">content</v-content>
+      <v-footer style="height: 50px; background:lightskyblue;">footer</v-footer>
+    </v-layout>
     <p>嵌套layout布局,侧边栏可关闭</p>
     <v-layout>
       <v-header>header</v-header>
@@ -9,7 +14,7 @@
       </v-layout>
       <v-footer>footer</v-footer>
     </v-layout>
-     <p>
+    <p>
       <strong>代码</strong>
     </p>
     <pre><code>{{content}}</code></pre>

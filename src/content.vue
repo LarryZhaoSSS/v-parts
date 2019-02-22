@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="v-content">
     <slot></slot>
   </div>
 </template>
@@ -9,7 +9,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.content {
+.v-content {
   display: flex;
   flex-grow: 1;
 }
