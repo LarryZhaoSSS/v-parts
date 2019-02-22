@@ -16,7 +16,8 @@ module.exports = {
         collapsable: false,
         children: ['/components/button',
         '/components/input',
-        '/components/layout'
+        '/components/layout',
+        '/components/gridrow'
       ]
       }
     ]
