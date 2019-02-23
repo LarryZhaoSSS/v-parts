@@ -4,44 +4,38 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'VpartsTabsPane',
-  inject: ['eventBus'],
-  data() {
-    return {
-      active: false
-    }
-  },
-  computed: {
-    classes () {
+  export default {
+    name: 'GuluTabsPane',
+    inject: ['eventBus'],
+    data () {
       return {
-        active: this.active
+        active: false
       }
-    }
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false
     },
-    name: {
-      type: String | Number,
-      required: true
+    props: {
+      name: {
+        type: String | Number,
+        required: true
+      }
+    },
+    computed: {
+      classes () {
+        return {
+          active: this.active
+        }
+      }
+    },
+    created () {
+      this.eventBus.$on('update:selected', (name) => {
+        this.active = name === this.name;
+      })
     }
-  },
-  created() {
-    this.eventBus.$on('update:selected', (name) => {
-      this.active = name === this.name
-    })
   }
-}
 </script>
 <style lang="scss" scoped>
-.tabs-pane {
-  padding: 1em;
-  &.active {
-    /* background: red; */
+  .tabs-pane {
+    padding: 1em;
+    &.active {
+    }
   }
-}
 </style>
-

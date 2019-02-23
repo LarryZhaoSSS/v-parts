@@ -4,12 +4,14 @@
   </div>
 </template>
 <script>
-export default {
-  name: 'VpartsTabsBody',
-  inject: ['eventBus'],
-
-}
+  export default {
+    name: 'GuluTabsBody',
+    inject: ['eventBus'],
+    created(){
+    }
+  }
 </script>
-<style lang="scss" scoped>
+<style>
+  .tabs-body {
+  }
 </style>
-
