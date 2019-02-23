@@ -19,7 +19,8 @@ module.exports = {
         '/components/layout',
         '/components/gridrow',
         '/components/toast',
-        '/components/popover'
+        '/components/popover',
+        '/components/collapse'
       ]
       }
     ]
