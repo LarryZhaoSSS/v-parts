@@ -2,7 +2,7 @@
   <div style="margin-top: 50px;">
     <div class="box">
       <v-input value="不可点击" disabled></v-input>
-      <v-input value="绑定值" v-model="message" @change="inputChange"></v-input>
+      <v-input value="绑定值" v-model="message"></v-input>
       <v-input value="只读" readonly></v-input>
     </div>
     <div class="box">
