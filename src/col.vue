@@ -1,95 +1,71 @@
 <template>
-  <div class="col" :style="colStyle" :class="colClass">
+  <div class="col" :class="colClass" :style="colStyle">
     <slot></slot>
   </div>
 </template>
 <script>
-let validator = (value) => {
-  let keys = Object.keys(value)
-  let valid = true
-  keys.forEach(key => {
-    if (!['span', 'offset'].includes(key)) {
-      valid = false
-    }
-  })
-  return valid
-}
-export default {
-  name: 'VpartsCol',
-  props: {
-    span: {
-      type: [Number, String]
+  let validator = (value) => {
+    let keys = Object.keys(value)
+    let valid = true
+    keys.forEach(key => {
+      if (!['span', 'offset'].includes(key)) {
+        valid = false
+      }
+    })
+    return valid
+  }
+  export default {
+    name: 'VPartsCol',
+    props: {
+      span: {
+        type: [Number, String]
+      },
+      offset: {
+        type: [Number, String]
+      },
+      ipad: {type: Object, validator,},
+      narrowPc: {type: Object, validator,},
+      pc: {type: Object, validator,},
+      widePc: {type: Object, validator,}
     },
-    offset: {
-      type: [Number, String]
-    },
-    phone: {
-      type: Object,
-      validator
-    },
-    ipad: {
-      type: Object,
-      validator
-    },
-    narrowPc: {
-      type: Object,
-      validator
-    },
-    pc: {
-      type: Object,
-      validator
-    },
-    widePc: {
-      type: Object,
-      validator
-    }
-  },
-  computed: {
-    colStyle() {
+    data () {
       return {
-        paddingLeft: this.gutter / 2 + 'px',
-        paddingRight: this.gutter / 2 + 'px'
+        gutter: 0,
       }
     },
-    colClass() {
-      let { span, offset, phone, ipad, narrowPc, pc, widePc } = this
-      let phoneClass = []
-      let createClasses = this.createClasses
-      // console.log('in class')
-       return [
+    methods: {
+      createClasses (obj, str = '') {
+        if (!obj) {return []}
+        let array = []
+        if (obj.span) { array.push(`col-${str}${obj.span}`) }
+        if (obj.offset) { array.push(`offset-${str}${obj.offset}`) }
+        return array
+      }
+    },
+    computed: {
+      colClass () {
+        let {span, offset, ipad, narrowPc, pc, widePc} = this
+        let createClasses = this.createClasses
+        return [
           ...createClasses({span, offset}),
           ...createClasses(ipad, 'ipad-'),
           ...createClasses(narrowPc, 'narrow-pc-'),
           ...createClasses(pc, 'pc-'),
           ...createClasses(widePc, 'wide-pc-'),
-       ]
-    }
-  },
-  data() {
-    return {
-      gutter: 0,
-
-    }
-  },
-  methods: {
-    createClasses(obj, str = '') {
-      if (!obj) { return [] }
-      let array = []
-      if (obj.span) { array.push(`col-${str}${obj.span}`) }
-      if (obj.offset) { array.push(`offset-${str}${obj.offset}`) }
-      // console.log('class------------')
-      // console.log(array)
-      return array
+        ]
+      },
+      colStyle () {
+        return {
+          paddingLeft: this.gutter / 2 + 'px',
+          paddingRight: this.gutter / 2 + 'px',
+        }
+      }
     }
   }
-}
 </script>
-<style lang="scss" scoped>
- .col {
+<style scoped lang="scss">
+  .col {
     $class-prefix: col-;
-    border: 1px solid red;
-    background: grey;
-    height: 100px;
     @for $n from 1 through 24 {
       &.#{$class-prefix}#{$n} {
         width: ($n / 24) * 100%;
