@@ -3,7 +3,7 @@ title: collapse 使用
 sidebarDepth: 2
 ---
 
-# button collapse
+# collapse 组件
 
 
 

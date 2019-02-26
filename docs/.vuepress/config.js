@@ -1,5 +1,6 @@
 module.exports = {
   title: 'v-parts UI',
+  base: '/v-parts/',
   description: 'a great vue ui',
   themeConfig: {
     sidebar: 'auto',
