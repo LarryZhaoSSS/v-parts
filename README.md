@@ -3,6 +3,8 @@
 by SSS
 
   [![Build Status](https://www.travis-ci.org/LarryKameZhao/v-parts.svg?branch=g-butto)](https://www.travis-ci.org/LarryKameZhao/v-parts)
+## [预览链接](https://larrykamezhao.github.io/v-parts/)  
+  
 ## 介绍
    这是一个在学习vue过程中，封装的一个组件库，希望对你有帮助
 ## 开始使用
