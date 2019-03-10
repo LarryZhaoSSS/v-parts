@@ -1,6 +1,8 @@
 <template>
   <div class="vparts-pager">
-    <span v-for="(page, index) in pages" :key="page+index">
+    <span v-for="(page, index) in pages" :key="page+index"
+    class = "vparts-pager-item" :class="{active: page === currentPage, separator: page === '...'}"
+    >
       {{page}}
     </span>
   </div>
@@ -23,16 +25,66 @@ export default {
     }
   },
   data () {
-    let pages = []
-    for (let i=1 ;i < this.totalPage; i++) {
-      pages.push(i)
-    }
+    let pages = [1, this.totalPage, this.currentPage, 
+    this.currentPage-1, this.currentPage-2,
+    this.currentPage+1,this.currentPage+2]
+    let p = unique(pages.sort((a, b) => a-b))
+    let p2 = p.reduce((prev,current, index, array)=>{
+      prev.push(current)
+      array[index+1] !== undefined && array[index+1] - array[index] > 1 && prev.push('...')
+      return prev
+    }, [])
     return {
-      pages
+      pages: p2
     }
   }
 }
+function unique(array) {
+  return [...new Set(array)]
+}
 </script>
 <style lang="scss" scoped>
+$border-color-hover: #666;
+$border-color: #999;
+$border-color-light: lighten($border-color, 30%);
+$border-radius: 4px;
+$box-shadow-color: rgba(0, 0, 0, 0.5);
+$button-active-bg: #eee;
+$button-bg: white;
+$button-height: 32px;
+$color: #333;
+$light-color: #666;
+$font-size: 14px;
+$small-font-size: 12px;
+$input-height: 32px;
+$red: #F1453D;
+$grey: #eee;
+$blue: #4a90e2;
+.vparts-pager{
+  &-item {
+    border: 1px solid $grey;
+    border-radius: $border-radius;
+    padding: 0 8px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    min-width: 20px;
+    min-height: 20px;
+    margin: 0 4px;
+    cursor:pointer;
+    &.active, &:hover{
+      border-color: $blue;
+    }
+    &.active{
+      cursor: default;
+    }
+    &.separator {
+      border: none;
+      cursor: default;
+    }
 
+  }
+
+}
 </style>
