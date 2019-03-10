@@ -4,7 +4,7 @@
     <g-button icon="setting">love js</g-button>
     <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
      -->
-     <v-pager :totalPage="20" :currentPage="1"></v-pager>
+     <v-pager :totalPage="20" :currentPage.sync="currentPage"></v-pager>
   </div>
 </template>
 <style>
@@ -29,7 +29,8 @@ export default {
       message: "hi",
       selectedTab: 'sports',
       selectedTabs: ['1','2'],
-      singleTabs:['1']
+      singleTabs:['1'],
+      currentPage: 1
     };
   }
 };
