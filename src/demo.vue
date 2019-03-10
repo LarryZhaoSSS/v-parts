@@ -1,8 +1,10 @@
 <template>
   <div class="page" style="position:relative;">
-    <g-button>默认按钮</g-button>
+    <!-- <g-button>默认按钮</g-button>
     <g-button icon="setting">love js</g-button>
     <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
+     -->
+     <v-pager :totalPage="20" :currentPage="10"></v-pager>
   </div>
 </template>
 <style>
@@ -12,15 +14,22 @@
 </style>
 <script>
 import GButton from './button'
+import VPager from './pager'
 export default {
   name: "demo",
   components: {
-    GButton
+    GButton,
+    VPager
   },
   data() {
     return {
       d: [],
-      scope: [new Date(1958, 1), new Date(2118, 5)]
+      scope: [new Date(1958, 1), new Date(2118, 5)],
+      isLoading: true,
+      message: "hi",
+      selectedTab: 'sports',
+      selectedTabs: ['1','2'],
+      singleTabs:['1']
     };
   }
 };
