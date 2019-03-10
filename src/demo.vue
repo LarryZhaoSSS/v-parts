@@ -4,7 +4,7 @@
     <g-button icon="setting">love js</g-button>
     <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
      -->
-     <v-pager :totalPage="20" :currentPage.sync="currentPage"></v-pager>
+     <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager>
   </div>
 </template>
 <style>

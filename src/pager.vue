@@ -1,5 +1,5 @@
 <template>
-  <div class="vparts-pager">
+  <div class="vparts-pager" :class="{hide: hideIfOnePage=== true && totalPage <= 1}">
     <span
       class="vparts-pager-nav prev"
       :class="{disabled: currentPage === 1}"
