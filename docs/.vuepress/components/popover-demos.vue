@@ -72,7 +72,7 @@
   </div>
 </template>
 <script>
-import vButton from '../../../src/button'
+import vButton from '../../../src/button/button'
 import vPopover from '../../../src/popover'
 export default {
   components: {

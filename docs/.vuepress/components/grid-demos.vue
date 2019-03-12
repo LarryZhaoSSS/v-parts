@@ -150,8 +150,8 @@
   </div>
 </template>
 <script>
-import vRow from '../../../src/row'
-import vCol from '../../../src/col'
+import vRow from '../../../src/grid/row'
+import vCol from '../../../src/grid/col'
 export default {
   components: {
     vRow,
@@ -273,7 +273,7 @@ export default {
         <div class="demoCol">8</div>
       </v-col>
     </v-row>
-      
+
       `,
       contentOffset: `
        <v-row class="demoRow" gutter="10">

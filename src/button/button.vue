@@ -10,7 +10,7 @@
 </template>
 <script>
 import Vue from 'vue'
-import Icon from './icon'
+import Icon from '../icon'
 export default {
   components: {
     'g-icon': Icon

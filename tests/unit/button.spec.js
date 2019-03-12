@@ -1,4 +1,4 @@
-import Button from '../../src/button'
+import Button from '../../src/button/button'
 import chai, {expect} from 'chai'
 import sinon from 'sinon'
 import sinonChai from 'sinon-chai'

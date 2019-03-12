@@ -23,8 +23,8 @@
   </div>
 </template>
 <script>
-import vCollapse from '../../../src/collapse'
-import vCollapseItem from '../../../src/collapse-item'
+import vCollapse from '../../../src/collapse/collapse'
+import vCollapseItem from '../../../src/collapse/collapse-item'
 export default {
   components: {
     vCollapse,

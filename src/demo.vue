@@ -13,7 +13,7 @@
 }
 </style>
 <script>
-import GButton from './button'
+import GButton from './button/button'
 import VPager from './pager'
 export default {
   name: "demo",

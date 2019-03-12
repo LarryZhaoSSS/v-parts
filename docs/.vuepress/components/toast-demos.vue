@@ -47,7 +47,7 @@
 </style>
 <script>
 import plugin from '../../../src/plugin'
-import vButton from '../../../src/button'
+import vButton from '../../../src/button/button'
 import Vue from 'vue'
 Vue.use(plugin)
 export default {

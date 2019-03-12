@@ -19,8 +19,8 @@
   </div>
 </template>
 <script>
-import VButton from '../../../src/button'
-import VButtonGroup from '../../../src/button-group'
+import VButton from '../../../src/button/button'
+import VButtonGroup from '../../../src/button/button-group'
 export default {
   components: {
     vButton: VButton,
@@ -35,7 +35,7 @@ export default {
       <v-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">加载状态</v-button>
       <v-button icon="setting" iconposition="right">图标右侧</v-button>
       <v-button disabled>不可点击</v-button>
-      
+
       <v-button-group style="margin-top: 50px;">
           <v-button icon="left" iconposition="left">上一步 </v-button>
           <v-button>更多</v-button>

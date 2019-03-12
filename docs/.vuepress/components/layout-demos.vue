@@ -39,11 +39,11 @@
   </div>
 </template>
 <script>
-import vLayout from '../../../src/layout'
-import vHeader from '../../../src/header'
+import vLayout from '../../../src/layout/layout'
+import vHeader from '../../../src/layout/header'
 import vSider from '../../../src/sider'
-import vContent from '../../../src/content'
-import vFooter from '../../../src/footer'
+import vContent from '../../../src/layout/content'
+import vFooter from '../../../src/layout/footer'
 export default {
   components: {
     vLayout,
@@ -63,7 +63,7 @@ export default {
         </v-layout>
         <v-footer>footer</v-footer>
       </v-layout>
-      
+
       `,
       contentBase: `
      <v-layout style="color: white; overflow:hidden; margin-bottom:50px;">
@@ -74,8 +74,8 @@ export default {
       </v-layout>
       <v-footer style="height: 50px; background:lightskyblue;">footer</v-footer>
     </v-layout>
-      
-      
+
+
       `,
       contentSider: `
       <v-layout style="color: white; overflow:hidden; margin-bottom:50px;">
