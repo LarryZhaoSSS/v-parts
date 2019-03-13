@@ -13,26 +13,44 @@ export default {
       required: true
     }
   },
-  created () {
+  created() {
     this.root.addItem(this)
   },
-  data () {
+  data() {
     return {
       selected: false
     }
   },
   methods: {
-    onClick () {
+    onClick() {
       this.$emit('add:selected', this.name)
     }
   }
 }
 </script>
 <style lang="scss" scoped>
-.v-nav-item{
+@import "var";
+.v-nav-item {
   padding: 10px 20px;
-  &.selected{
-    background: yellowgreen;
+  &.selected {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom: 2px solid $blue;
+      width: 100%;
+    }
+  }
+}
+.v-sub-nav .v-nav-item {
+  &.selected {
+    background: $grey;
+    color: $color;
+    &::after {
+      display: none;
+    }
   }
 }
 </style>

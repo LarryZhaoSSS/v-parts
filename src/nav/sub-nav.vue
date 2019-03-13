@@ -11,31 +11,39 @@
 <script>
 export default {
   name: 'VPartsSubNav',
-  data () {
+  data() {
     return {
       open: false
     }
   },
   methods: {
-    onClick () {
+    onClick() {
       this.open = !this.open
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+@import "var";
 .v-sub-nav {
   position: relative;
+
   > span {
-     padding: 10px 20px;
-     display: block;
+    padding: 10px 20px;
+    display: block;
   }
   &-popover {
+    background: white;
     position: absolute;
     top: 100%;
     left: 0;
-    border: 1px solid black;
+    margin-top: 4px;
     white-space: nowrap;
+    box-shadow: 0 0 3px fade_out(black, 0.8);
+    border-radius: $border-radius;
+    color: $light-color;
+    font-size: $font-size;
+    min-width: 8em;
   }
 }
 .v-sub-nav .v-sub-nav .v-sub-nav-popover {

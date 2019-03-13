@@ -26,11 +26,6 @@ export default {
       items: []
     }
   },
-  // computed: {
-  //   items() {
-  //     return this.$children.filter(vm => vm.$options.name === 'VPartsNavItem')
-  //   }
-  // },
   methods: {
     updateChildren() {
       this.items.forEach(vm => {
@@ -70,8 +65,11 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import "var";
 .v-nav {
   display: flex;
-  border: 2px solid red;
+  border-bottom: 1px solid $grey;
+  color: $color;
+  cursor: default;
 }
 </style>

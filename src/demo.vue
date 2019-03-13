@@ -23,6 +23,7 @@
       </v-sub-nav>
       <v-nav-item name="job">招聘</v-nav-item>
     </v-nav>
+    <p>hahahah我是中文</p>
   </div>
 </template>
 <style>
