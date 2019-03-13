@@ -3,8 +3,13 @@
     <!-- <g-button>默认按钮</g-button>
     <g-button icon="setting">love js</g-button>
     <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
-     -->
-     <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager>
+    -->
+    <!-- <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager> -->
+    <v-nav :selected.sync="selected" multiple>
+      <v-nav-item name="home">首页</v-nav-item>
+      <v-nav-item name="about">关于</v-nav-item>
+      <v-nav-item name="job">招聘</v-nav-item>
+    </v-nav>
   </div>
 </template>
 <style>
@@ -15,11 +20,18 @@
 <script>
 import GButton from './button/button'
 import VPager from './pager'
+import VNav from './nav/nav'
+import VNavItem from './nav/nav-item'
+import VSubNav from './nav/sub-nav'
 export default {
   name: "demo",
   components: {
     GButton,
-    VPager
+    VPager,
+    VNav,
+    VNavItem,
+    VSubNav
+
   },
   data() {
     return {
@@ -28,9 +40,10 @@ export default {
       isLoading: true,
       message: "hi",
       selectedTab: 'sports',
-      selectedTabs: ['1','2'],
-      singleTabs:['1'],
-      currentPage: 1
+      selectedTabs: ['1', '2'],
+      singleTabs: ['1'],
+      currentPage: 1,
+      selected: ['home']
     };
   }
 };
