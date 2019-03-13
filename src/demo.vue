@@ -7,7 +7,11 @@
     <!-- <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager> -->
     <v-nav :selected.sync="selected" multiple>
       <v-nav-item name="home">首页</v-nav-item>
-      <v-nav-item name="about">关于</v-nav-item>
+      <v-sub-nav>
+        <template slot="title">关于</template>
+        <v-nav-item name="culture">企业文化</v-nav-item>
+        <v-nav-item name="develop">开发团队</v-nav-item>
+      </v-sub-nav>
       <v-nav-item name="job">招聘</v-nav-item>
     </v-nav>
   </div>
@@ -43,7 +47,7 @@ export default {
       selectedTabs: ['1', '2'],
       singleTabs: ['1'],
       currentPage: 1,
-      selected: ['home']
+      selected: ['home', 'culture']
     };
   }
 };

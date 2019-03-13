@@ -6,11 +6,15 @@
 <script>
 export default {
   name: 'VPartsNavItem',
+  inject: ['root'],
   props: {
     name: {
       type: String,
       required: true
     }
+  },
+  created () {
+    this.root.addItem(this)
   },
   data () {
     return {

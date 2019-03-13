@@ -6,6 +6,11 @@
 <script>
 export default {
   name: 'VPartsNav',
+  provide () {
+    return {
+      root: this
+    }
+  },
   props: {
     selected: {
       default: () => [],
@@ -16,11 +21,16 @@ export default {
       default: false
     }
   },
-  computed: {
-    items() {
-      return this.$children.filter(vm => vm.$options.name === 'VPartsNavItem')
+  data () {
+    return {
+      items: []
     }
   },
+  // computed: {
+  //   items() {
+  //     return this.$children.filter(vm => vm.$options.name === 'VPartsNavItem')
+  //   }
+  // },
   methods: {
     updateChildren() {
       this.items.forEach(vm => {
@@ -45,6 +55,9 @@ export default {
           }
         })
       })
+    },
+    addItem (vm) {
+      this.items.push(vm)
     }
   },
   mounted() {
