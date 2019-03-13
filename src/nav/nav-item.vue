@@ -23,6 +23,8 @@ export default {
   },
   methods: {
     onClick() {
+      this.root.namePath = []
+      this.$parent.updateNamePath && this.$parent.updateNamePath()
       this.$emit('add:selected', this.name)
     }
   }
@@ -32,8 +34,8 @@ export default {
 @import "var";
 .v-nav-item {
   padding: 10px 20px;
+  position: relative;
   &.selected {
-    position: relative;
     &::after {
       content: "";
       position: absolute;

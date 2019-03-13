@@ -1,7 +1,10 @@
 <template>
-  <div class="v-sub-nav">
-    <span @click="onClick">
+  <div class="v-sub-nav" :class="{active}" v-click="close">
+    <span class="v-sub-nav-label" @click="onClick">
       <slot name="title"></slot>
+      <span class="v-sub-nav-icon" :class="{open}">
+        <v-icon name="right"></v-icon>
+      </span>
     </span>
     <div class="v-sub-nav-popover" v-show="open">
       <slot></slot>
@@ -9,16 +12,45 @@
   </div>
 </template>
 <script>
+import click from '../click-outside.js'
+import VIcon from '../icon'
 export default {
+  directives: { click },
   name: 'VPartsSubNav',
+  components: {
+    VIcon
+  },
+  inject: ['root'],
+  props: {
+    name: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
-      open: false
+      open: false,
+    }
+  },
+  computed: {
+    active() {
+      return this.root.namePath.indexOf(this.name) >= 0 ? true : false
     }
   },
   methods: {
     onClick() {
       this.open = !this.open
+    },
+    close() {
+      this.open = false
+    },
+    updateNamePath() {
+      this.root.namePath.unshift(this.name)
+      if (this.$parent.updateNamePath) {
+        this.$parent.updateNamePath()
+      } else {
+
+      }
     }
   }
 }
@@ -27,10 +59,23 @@ export default {
 @import "var";
 .v-sub-nav {
   position: relative;
-
-  > span {
+  &.active {
+    position: relative;
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      border-bottom: 2px solid $blue;
+      width: 100%;
+    }
+  }
+  .v-sub-nav-label {
     padding: 10px 20px;
     display: block;
+  }
+  &-icon {
+    display: none;
   }
   &-popover {
     background: white;
@@ -46,10 +91,33 @@ export default {
     min-width: 8em;
   }
 }
-.v-sub-nav .v-sub-nav .v-sub-nav-popover {
-  top: 0;
-  left: 100%;
-  margin-left: 8px;
+.v-sub-nav .v-sub-nav {
+  .v-sub-nav-popover {
+    top: 0;
+    left: 100%;
+    margin-left: 8px;
+  }
+  &.active {
+    &::after {
+      display: none;
+    }
+  }
+  .v-sub-nav-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .v-sub-nav-icon {
+    display: inline-flex;
+    margin-left: 1em;
+    svg {
+      fill: $light-color;
+    }
+    transition: transform 0.3s;
+    &.open {
+      transform: rotate(180deg);
+    }
+  }
 }
 </style>
 
