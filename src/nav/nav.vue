@@ -1,5 +1,5 @@
 <template>
-  <div class="v-nav">
+  <div class="v-nav" :class="{vertical}">
     <slot></slot>
   </div>
 </template>
@@ -8,7 +8,8 @@ export default {
   name: 'VPartsNav',
   provide () {
     return {
-      root: this
+      root: this,
+      vertical:this.vertical
     }
   },
   props: {
@@ -17,6 +18,10 @@ export default {
       type: Array
     },
     multiple: {
+      type: Boolean,
+      default: false
+    },
+    vertical: {
       type: Boolean,
       default: false
     }
@@ -73,5 +78,9 @@ export default {
   color: $color;
   cursor: default;
   user-select: none;
+  &.vertical{
+    flex-direction: column;
+    border: 1px solid $grey;
+  }
 }
 </style>
