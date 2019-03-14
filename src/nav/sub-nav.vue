@@ -6,17 +6,22 @@
         <v-icon name="right"></v-icon>
       </span>
     </span>
-    <transition
-      @before-enter="beforeEnter"
-      @enter="enter"
-      @after-enter="afterEnter"
-      @leave="leave"
-      @after-leave="afterLeave"
-    >
-      <div class="v-sub-nav-popover" v-show="open" :class="{vertical}">
-        <slot></slot>
-      </div>
-    </transition>
+    <template v-if="vertical">
+      <transition
+        @before-enter="beforeEnter"
+        @enter="enter"
+        @after-enter="afterEnter"
+        @leave="leave"
+        @after-leave="afterLeave"
+      >
+        <div class="v-sub-nav-popover" v-show="open" :class="{vertical}">
+          <slot></slot>
+        </div>
+      </transition>
+    </template>
+    <div v-else class="v-sub-nav-popover" v-show="open" :class="{vertical}">
+      <slot></slot>
+    </div>
   </div>
 </template>
 <script>
@@ -60,11 +65,11 @@ export default {
       el.style.height = 0
       el.getBoundingClientRect()
       el.style.height = `${height}px`
-      el.addEventListener('transitionend', ()=>{
+      el.addEventListener('transitionend', () => {
         done()
       })
     },
-    afterEnter (el) {
+    afterEnter(el) {
       el.style.height = 'auto'
     },
     leave(el, done) {
@@ -72,7 +77,7 @@ export default {
       el.style.height = `${height}px`
       el.getBoundingClientRect()
       el.style.height = 0
-      el.addEventListener('transitionend',()=>{
+      el.addEventListener('transitionend', () => {
         done()
       })
     },
@@ -125,12 +130,13 @@ export default {
     color: $light-color;
     font-size: $font-size;
     min-width: 8em;
+    transition: height 0.3s;
     &.vertical {
       position: static;
       border-radius: none;
       border: none;
       box-shadow: none;
-      transition: height .3s;
+      transition: height 0.3s;
       overflow: hidden;
     }
   }
