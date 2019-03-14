@@ -1,8 +1,8 @@
 <template>
-  <div class="v-sub-nav" :class="{active}" v-click="close">
+  <div class="v-sub-nav" :class="{active,vertical}" v-click="close">
     <span class="v-sub-nav-label" @click="onClick">
       <slot name="title"></slot>
-      <span class="v-sub-nav-icon" :class="{open}">
+      <span class="v-sub-nav-icon" :class="{open,vertical}">
         <v-icon name="right"></v-icon>
       </span>
     </span>
@@ -19,9 +19,11 @@
         </div>
       </transition>
     </template>
-    <div v-else class="v-sub-nav-popover" v-show="open" :class="{vertical}">
-      <slot></slot>
-    </div>
+    <template v-else>
+      <div class="v-sub-nav-popover" v-show="open" :class="{vertical}">
+        <slot></slot>
+      </div>
+    </template>
   </div>
 </template>
 <script>
@@ -100,15 +102,17 @@ export default {
 
 .v-sub-nav {
   position: relative;
-  &.active {
-    position: relative;
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      border-bottom: 2px solid $blue;
-      width: 100%;
+  &:not(.vertical) {
+    &.active {
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-bottom: 2px solid $blue;
+        width: 100%;
+      }
     }
   }
   .v-sub-nav-label {
@@ -164,6 +168,12 @@ export default {
       fill: $light-color;
     }
     transition: transform 0.3s;
+    &.vertical{
+      transform: rotate(90deg);
+      &.open{
+        transform: rotate(270deg);
+      }
+    }
     &.open {
       transform: rotate(180deg);
     }

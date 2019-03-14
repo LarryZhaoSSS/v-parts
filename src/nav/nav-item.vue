@@ -1,12 +1,12 @@
 <template>
-  <div class="v-nav-item" :class="{selected}" @click="onClick">
+  <div class="v-nav-item" :class="{selected, vertical}" @click="onClick">
     <slot></slot>
   </div>
 </template>
 <script>
 export default {
   name: 'VPartsNavItem',
-  inject: ['root'],
+  inject: ['root', 'vertical'],
   props: {
     name: {
       type: String,
@@ -35,18 +35,29 @@ export default {
 .v-nav-item {
   padding: 10px 20px;
   position: relative;
-  &.selected {
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      border-bottom: 2px solid $blue;
-      width: 100%;
+  &:not(.vertical) {
+    &.selected {
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-bottom: 2px solid $blue;
+        width: 100%;
+      }
+    }
+  }
+  &.vertical {
+    &.selected {
+      color: $blue;
     }
   }
 }
-.v-sub-nav .v-nav-item {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.v-sub-nav .v-nav-item:not(.vertical) {
   &.selected {
     background: $grey;
     color: $color;
