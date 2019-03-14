@@ -24,8 +24,8 @@
         </v-sub-nav>
       </v-sub-nav>
       <v-nav-item name="job">招聘</v-nav-item>
-    </v-nav> -->
-      <v-nav :selected.sync="selected" vertical style="width: 200px;margin:20px;">
+    </v-nav>-->
+    <v-nav :selected.sync="selected" vertical style="width: 200px;margin:20px;">
       <v-nav-item name="home">首页</v-nav-item>
       <v-sub-nav name="about">
         <template slot="title">关于</template>
@@ -33,7 +33,7 @@
         <v-nav-item name="develop">开发团队</v-nav-item>
         <v-sub-nav name="contact">
           <template slot="title">联系方式</template>
-           <v-nav-item name="wechat">微信</v-nav-item>
+          <v-nav-item name="wechat">微信</v-nav-item>
           <v-sub-nav name="phone">
             <template slot="title">手机</template>
             <v-nav-item name="yidong">移动</v-nav-item>
@@ -66,6 +66,11 @@ export default {
     VSubNav
 
   },
+  watch: {
+    selected(newValue) {
+      console.log(newValue)
+    }
+  },
   data() {
     return {
       d: [],
@@ -76,7 +81,7 @@ export default {
       selectedTabs: ['1', '2'],
       singleTabs: ['1'],
       currentPage: 1,
-      selected: ['home', 'culture']
+      selected: 'home'
     };
   }
 };

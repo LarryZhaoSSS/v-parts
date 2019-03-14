@@ -6,16 +6,15 @@
 <script>
 export default {
   name: 'VPartsNav',
-  provide () {
+  provide() {
     return {
       root: this,
-      vertical:this.vertical
+      vertical: this.vertical
     }
   },
   props: {
     selected: {
-      default: () => [],
-      type: Array
+      type: String
     },
     multiple: {
       type: Boolean,
@@ -26,7 +25,7 @@ export default {
       default: false
     }
   },
-  data () {
+  data() {
     return {
       items: [],
       namePath: []
@@ -35,7 +34,7 @@ export default {
   methods: {
     updateChildren() {
       this.items.forEach(vm => {
-        if (this.selected.indexOf(vm.name) >= 0) {
+        if (this.selected === vm.name) {
           vm.selected = true
         } else {
           vm.selected = false
@@ -44,29 +43,21 @@ export default {
     },
     listenToChildren() {
       this.items.forEach(vm => {
-        vm.$on('add:selected', (name) => {
-          if (this.multiple) {
-            if (this.selected.indexOf(name) < 0) {
-              let copy = JSON.parse(JSON.stringify(this.selected))
-              copy.push(name)
-              this.$emit('update:selected', copy)
-            }
-          } else {
-            this.$emit('update:selected', [name])
-          }
+        vm.$on('update:selected', (name) => {
+          this.$emit('update:selected', name)
         })
       })
     },
-    addItem (vm) {
+    addItem(vm) {
       this.items.push(vm)
     }
   },
   mounted() {
-    this.updateChildren ()
-    this.listenToChildren ()
+    this.updateChildren()
+    this.listenToChildren()
   },
   updated() {
-    this.updateChildren ()
+    this.updateChildren()
   }
 }
 </script>
@@ -78,7 +69,7 @@ export default {
   color: $color;
   cursor: default;
   user-select: none;
-  &.vertical{
+  &.vertical {
     flex-direction: column;
     border: 1px solid $grey;
   }
