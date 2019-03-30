@@ -1,17 +1,19 @@
 <template>
-  <div class="v-cascader-item">
+  <div class="v-cascade-item">
     {{sourceItem.children}}
     {{sourceItem.name}}
-    <!-- <v-cascader-item
-      v-for="(item,index) in sourceItem"
-      :souceItem="item"
-      :key="item+index"
-    ></v-cascader-item> -->
+    <v-cascade-item
+    v-for="item in sourceItem.children"
+    v-if="sourceItem.children"
+    :sourceItem="item"
+    >
+
+    </v-cascade-item>
   </div>
 </template>
 <script>
 export default {
-  name: "VCascaderItem",
+  name: "VCascadeItem",
   props: {
     sourceItem: {
       type: Object
@@ -21,7 +23,7 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.v-cascader-item {
+.v-cascade-item {
   border: 1px solid red;
 }
 </style>
