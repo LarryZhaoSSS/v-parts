@@ -5,7 +5,9 @@
     <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
     -->
     <!-- <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager> -->
-    <v-cascade :source="source"></v-cascade>
+    <p>111</p>
+    <v-cascade :source="source" popover-height="200px"></v-cascade>
+    <p>222</p>
   </div>
 </template>
 <style>

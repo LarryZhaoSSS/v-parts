@@ -1,8 +1,8 @@
 <template>
   <div class="v-cascade">
     <div class="trigger" @click="popoverVisible=!popoverVisible"></div>
-    <div class="popover" v-if="popoverVisible">
-      <v-cascade-item :items="source"></v-cascade-item>
+    <div class="popover-wrapper" v-if="popoverVisible">
+      <v-cascade-item :items="source" class="popover" :height=" popoverHeight"></v-cascade-item>
     </div>
   </div>
 </template>
@@ -17,23 +17,13 @@
     props: {
       source: {
         type: Array
+      },
+      popoverHeight:{
+        type: String
       }
     },
     computed:{
-      level2Items(){
-        if(this.level1Selected){
-          return this.level1Selected.children
-        } else {
-          return []
-        }
-      },
-      level3Items(){
-        if(this.level2Selected){
-          return this.level2Selected.children
-        } else {
-          return []
-        }
-      }
+    
     },
     data() {
       return {
@@ -46,18 +36,23 @@
 </script>
 <style lang="scss" scoped>
   @import "var";
-  
   .v-cascade {
+    position: relative;
     .trigger {
       border: 1px solid red;
       height: 32px;
       width: 100px;
     }
-    .popover {
-      border: 1px solid green;
-      height: 100px;
+    .popover-wrapper {
+      position: absolute;
       display: flex;
-      
+      top: 100%;
+      left:0;
+      @extend .box-shadow;
+      background: white;
+      .label {
+        white-space:nowrap;
+      }
     }
   }
 </style>
