@@ -2,26 +2,7 @@
   <div class="v-cascade">
     <div class="trigger" @click="popoverVisible=!popoverVisible"></div>
     <div class="popover" v-if="popoverVisible">
-      <div class="level1">
-        <div class="label"
-             @click="level1Selected=sourceItem"
-             v-for="sourceItem in source" >
-          {{sourceItem.name}}
-        </div>
-      </div>
-      <div class="level2">
-        <div class="label"
-             @click="level1Selected = item2"
-             v-for="item2 in level2Items">
-          {{item2.name}}
-        </div>
-      </div>
-      <div class="level3" >
-        <div class="label" v-for="item3 in level3Items">
-          {{item3.name}}
-        </div>
-      </div>
-    
+      <v-cascade-item :items="source"></v-cascade-item>
     </div>
   </div>
 </template>
@@ -76,9 +57,7 @@
       border: 1px solid green;
       height: 100px;
       display: flex;
-      .label{
-        white-space: nowrap;
-      }
+      
     }
   }
 </style>
