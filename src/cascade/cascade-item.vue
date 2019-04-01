@@ -4,7 +4,7 @@
       <div class="label"
            v-for="item in items" @click="leftSelected = item" >
         {{item.name}}
-        <span v-if="item.children">></span>
+        <icon class="icon" v-if="item.children" name="right"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
@@ -13,8 +13,12 @@
   </div>
 </template>
 <script>
+  import Icon from '../icon'
 export default {
   name: "VCascadeItem",
+  components: {
+    Icon
+  },
   props: {
     items: {
       type: Array
@@ -53,11 +57,17 @@ export default {
   }
   .right{
     height: 100%;
-    border-left: 2px solid $border-color;
+    border-left: 2px solid $border-color-light;
   
   }
   .label{
     padding: .3em .5em;
+    display: flex;
+    align-items: center;
+    .icon{
+      margin-left: 1em;
+      transform: scale(0.75);
+    }
   }
 }
 </style>
