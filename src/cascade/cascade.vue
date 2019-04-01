@@ -2,7 +2,7 @@
   <div class="v-cascade">
     <div class="trigger" @click="popoverVisible=!popoverVisible"></div>
     <div class="popover-wrapper" v-if="popoverVisible">
-      <v-cascade-item :items="source" class="popover" :height=" popoverHeight"></v-cascade-item>
+      <v-cascade-item @update:selected="onUpdateSelected" :selected="selected" :items="source" class="popover" :height=" popoverHeight"></v-cascade-item>
     </div>
   </div>
 </template>
@@ -20,6 +20,10 @@
       },
       popoverHeight:{
         type: String
+      },
+      selected: {
+        type: Array,
+        default: ()=> { return []}
       }
     },
     computed:{
@@ -30,6 +34,11 @@
         popoverVisible: false,
         level1Selected: null,
         level2Selected: null
+      }
+    },
+    methods: {
+      onUpdateSelected (newSelected) {
+        this.$emit('update:selected', newSelected)
       }
     }
   };

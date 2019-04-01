@@ -1,14 +1,18 @@
 <template>
   <div class="v-cascade-item" :style="{height}">
+    <div>
+      {{selected&&selected[level]&&selected[level].name}}
+      {{level}}
+    </div>
     <div class="left">
       <div class="label"
-           v-for="item in items" @click="leftSelected = item" >
+           v-for="item in items" @click="onClickLabel(item)" >
         {{item.name}}
         <icon class="icon" v-if="item.children" name="right"></icon>
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <v-cascade-item :items="rightItems" :height="height"></v-cascade-item>
+      <v-cascade-item :selected="selected" :level="level+1" ref="right" :items="rightItems" :height="height"></v-cascade-item>
     </div>
   </div>
 </template>
@@ -25,6 +29,14 @@ export default {
     },
     height:{
       type: String
+    },
+    selected: {
+      type: Array,
+      default: ()=> { return []}
+    },
+    level: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
@@ -40,6 +52,16 @@ export default {
     return {
       leftSelected: null
     }
+  },
+  methods: {
+    onClickLabel (item) {
+      let copy = JSON.parse(JSON.stringify(this.selected))
+      copy[this.level] = item
+      this.$emit('update:selected', copy)
+    }
+  },
+  mounted() {
+  
   }
 };
 
