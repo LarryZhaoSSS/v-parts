@@ -5,7 +5,7 @@
     <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
     -->
     <!-- <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager> -->
-    <p>{{selectedSource}}</p>
+    
     <v-cascade @update:selected="selectedSource = $event" :source="source" :selected="selectedSource" popover-height="200px"></v-cascade>
     <p>222</p>
   </div>

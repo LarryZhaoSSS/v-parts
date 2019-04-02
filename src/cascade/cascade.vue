@@ -1,8 +1,9 @@
 <template>
   <div class="v-cascade">
-    <div class="trigger" @click="popoverVisible=!popoverVisible"></div>
+    <div class="trigger" @click="popoverVisible=!popoverVisible">{{result || '&nbsp;'}}</div>
     <div class="popover-wrapper" v-if="popoverVisible">
-      <v-cascade-item @update:selected="onUpdateSelected" :selected="selected" :items="source" class="popover" :height=" popoverHeight"></v-cascade-item>
+      <v-cascade-item @update:selected="onUpdateSelected" :selected="selected" :items="source" class="popover"
+                      :height=" popoverHeight"></v-cascade-item>
     </div>
   </div>
 </template>
@@ -14,21 +15,26 @@
     components: {
       VCascadeItem
     },
+    computed: {
+      result() {
+        return this.selected.map((item) => item.name).join('/')
+      }
+    },
     props: {
       source: {
         type: Array
       },
-      popoverHeight:{
+      popoverHeight: {
         type: String
       },
       selected: {
         type: Array,
-        default: ()=> { return []}
+        default: () => {
+          return []
+        }
       }
     },
-    computed:{
-    
-    },
+
     data() {
       return {
         popoverVisible: false,
@@ -37,7 +43,7 @@
       }
     },
     methods: {
-      onUpdateSelected (newSelected) {
+      onUpdateSelected(newSelected) {
         this.$emit('update:selected', newSelected)
       }
     }
@@ -45,22 +51,30 @@
 </script>
 <style lang="scss" scoped>
   @import "var";
+  
   .v-cascade {
     position: relative;
+    
     .trigger {
-      border: 1px solid red;
-      height: 32px;
-      width: 100px;
+      border: 1px solid $border-color;
+      border-radius: $border-radius;
+      height: $input-height;
+      display: inline-flex;
+      align-items: center;
+      padding: 0 1em;
+      min-width: 10em;
     }
+    
     .popover-wrapper {
       position: absolute;
       display: flex;
       top: 100%;
-      left:0;
+      left: 0;
       @extend .box-shadow;
       background: white;
+      margin-top: 8px;
       .label {
-        white-space:nowrap;
+        white-space: nowrap;
       }
     }
   }

@@ -1,9 +1,5 @@
 <template>
   <div class="v-cascade-item" :style="{height}">
-    <div>
-      {{selected&&selected[level]&&selected[level].name}}
-      {{level}}
-    </div>
     <div class="left">
       <div class="label"
            v-for="item in items" @click="onClickLabel(item)" >
@@ -12,7 +8,7 @@
       </div>
     </div>
     <div class="right" v-if="rightItems">
-      <v-cascade-item :selected="selected" :level="level+1" ref="right" :items="rightItems" :height="height"></v-cascade-item>
+      <v-cascade-item @update:selected="onUpdateSelected" :selected="selected" :level="level+1" ref="right" :items="rightItems" :height="height"></v-cascade-item>
     </div>
   </div>
 </template>
@@ -41,8 +37,9 @@ export default {
   },
   computed: {
     rightItems() {
-      if(this.leftSelected && this.leftSelected.children) {
-        return this.leftSelected.children
+      let currentSelected = this.selected[this.level]
+      if(currentSelected && currentSelected.children) {
+        return currentSelected.children
       } else {
         return null
       }
@@ -57,7 +54,11 @@ export default {
     onClickLabel (item) {
       let copy = JSON.parse(JSON.stringify(this.selected))
       copy[this.level] = item
+      copy.splice(this.level + 1)
       this.$emit('update:selected', copy)
+    },
+    onUpdateSelected(newSelected) {
+      this.$emit('update:selected', newSelected)
     }
   },
   mounted() {
