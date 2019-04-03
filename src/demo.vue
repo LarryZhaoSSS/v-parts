@@ -43,45 +43,7 @@
         selectedTabs: ['1', '2'],
         singleTabs: ['1'],
         currentPage: 1,
-        source: [
-          {
-            name: '浙江',
-            children: [
-              {
-                name: '杭州',
-                children: [{name: '西湖区'}, {name: '下沙'}]
-              },
-              {
-                name: '嘉兴',
-                children: [
-                  {
-                    name: '南湖'
-                  },
-                  {
-                    name: '秀洲'
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            name: '江苏',
-            children: [
-              {
-                name: '苏州',
-                children: [{name: '工业园区', name: '相城区'}]
-              },
-              {
-                name: '南京',
-                children: [
-                  {
-                    name: '玄武'
-                  }
-                ]
-              }
-            ]
-          }
-        ],
+        source:ajax(),
         selectedSource: []
       };
     }
