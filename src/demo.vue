@@ -6,7 +6,14 @@
     -->
     <!-- <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager> -->
     
-    <v-cascade :source="source" :selected.sync="selectedSource" popover-height="200px"></v-cascade>
+    <v-cascade @update:selected="updateSelected" :source.sync="source" :selected.sync="selectedSource" popover-height="200px"></v-cascade>
+  
+    <div style="padding: 20px;">
+      <v-cascade :source.sync="source" popover-height="200px"
+                  :selected.sync="selectedSource" :load-data="loadData"></v-cascade>
+    </div>
+    {{selectedSource.map(item=> item.name)}}
+  
   </div>
 </template>
 <style>
@@ -22,9 +29,21 @@
   
 
   function ajax(parentId = 0) {
-    return db.filter((item)=>item.parent_id == parentId)
+    return new Promise((success, fail) => {
+      setTimeout(() => {
+        let result = db.filter((item) => item.parent_id == parentId)
+        result.forEach(node => {
+          if (db.filter(item => item.parent_id === node.id).length > 0) {
+            node.isLeaf = false
+          }else{
+            node.isLeaf = true
+          }
+        })
+        success(result)
+      }, 1000)
+    })
   }
-
+  
   console.log(ajax())
   export default {
     name: 'demo',
@@ -43,9 +62,32 @@
         selectedTabs: ['1', '2'],
         singleTabs: ['1'],
         currentPage: 1,
-        source:ajax(),
+        source:[],
         selectedSource: []
       };
+    },
+    methods: {
+      updateSelected () {
+        if (this.selectedSource[0]) {
+          ajax(this.selectedSource[0].id).then(result=>{
+            console.log(result)
+          })
+        }
+       
+        console.log(this.selectedSource)
+      },
+      loadData ({id}, updateSource) {
+        ajax(id).then(result => {
+          console.log(result)
+          updateSource(result) // 回调:把别人传给我的函数调用一下
+        })
+      },
+    },
+    created() {
+      ajax(0).then(result=>{
+        console.log(result)
+        this.source = result
+      })
     }
   };
 </script>
