@@ -13,7 +13,7 @@
 <!--                  :selected.sync="selectedSource" :load-data="loadData"></v-cascade>-->
 <!--    </div>-->
     
-    <v-slides selected="1">
+    <v-slides :selected="selectedSlide">
       <v-slides-item name="1">
         <div class="box">1</div>
       </v-slides-item>
@@ -85,7 +85,8 @@
         singleTabs: ['1'],
         currentPage: 1,
         source:[],
-        selectedSource: []
+        selectedSource: [],
+        selectedSlide: '1'
       };
     },
     methods: {
@@ -110,6 +111,9 @@
         // console.log(result)
         this.source = result
       })
+      setTimeout(()=>{
+        this.selectedSlide = '2'
+      },2000)
     }
   };
 </script>

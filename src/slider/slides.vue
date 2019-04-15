@@ -16,27 +16,34 @@
         type: String
       }
     },
-    mounted() {
-      
-      let first = this.$children[0]
-      if (!this.selected) {
-        this.selected = first.$options.name
+    methods: {
+      updateSlideItem() {
+        let first = this.$children[0]
+        let selected = this.selected || first.name
+        this.$children.forEach((vm) => {
+          vm.selected = selected
+        })
       }
-      this.$children.forEach((vm)=>{
-        vm.selected = this.selected
-      })
+    },
+    mounted() {
+      this.updateSlideItem()
+    },
+    updated() {
+      this.updateSlideItem()
     }
   }
 </script>
 
 <style lang="scss" scoped>
-  .vparts-slides{
+  .vparts-slides {
     display: inline-block;
     border: 1px solid black;
-    &-window{
+    
+    &-window {
     
     }
-    &-wrapper{
+    
+    &-wrapper {
       position: relative;
     }
   }
