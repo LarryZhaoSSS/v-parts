@@ -13,7 +13,7 @@
 <!--                  :selected.sync="selectedSource" :load-data="loadData"></v-cascade>-->
 <!--    </div>-->
     
-    <v-slides :selected="selectedSlide">
+    <v-slides class="slide-wrapper" :selected.sync="selectedSlide">
       <v-slides-item name="1">
         <div class="box">1</div>
       </v-slides-item>
@@ -31,10 +31,13 @@
   /*.page {*/
   /*  padding: 100px;*/
   /*}*/
-  
+  .slide-wrapper{
+    margin: 40px;
+  }
   .box {
-    width: 200px;
-    height: 150px;
+    height: 200px;
+    width: 100%;
+  
     border: 1px solid red;
     background: #ddd;
   }
@@ -86,7 +89,7 @@
         currentPage: 1,
         source:[],
         selectedSource: [],
-        selectedSlide: '1'
+        selectedSlide: '2'
       };
     },
     methods: {
@@ -111,9 +114,9 @@
         // console.log(result)
         this.source = result
       })
-      setTimeout(()=>{
-        this.selectedSlide = '2'
-      },2000)
+      // setTimeout(()=>{
+      //   this.selectedSlide = '2'
+      // },2000)
     }
   };
 </script>

@@ -1,6 +1,8 @@
 <template>
   <transition name="slide">
-    <div class="vparts-slides-item" v-if="visible">
+    <div class="vparts-slides-item" v-if="visible"
+    :class="{reverse}"
+    >
       <slot></slot>
     </div>
   </transition>
@@ -12,7 +14,8 @@
       name: {
         type: String,
         required: true
-      }
+      },
+      
     
     },
     computed: {
@@ -22,7 +25,8 @@
     },
     data () {
       return {
-        selected: undefined
+        selected: undefined,
+        reverse: false
       }
     },
     created () {
@@ -35,15 +39,27 @@
     position: absolute;
     top:0;
     left:0;
+    width:100%;
+    height: 100%;
   }
   .slide-enter-active, .slide-leave-active{
     transition: all 1s;
   }
   .slide-enter{
     tansform: translateX(100%);
+    opacity: 0;
   }
   .slide-leave-to {
+    transform: translateX(-100%) scale(0.5);
+    opacity: 0;
+  }
+  .slide-enter .reverse{
     transform: translateX(-100%);
+    opacity: 0;
+  }
+  .slide-leave-to .reverse{
+    transform: translateX(100%) scale(0.5);
+    opacity: 0;
   }
   .vparts-slides-item{
   
