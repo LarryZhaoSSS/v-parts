@@ -37,7 +37,8 @@
     },
     data() {
       return {
-        childrenLength: 0
+        childrenLength: 0,
+        lastSelectedIndex: undefined
       }
     },
     methods: {
@@ -52,9 +53,10 @@
             newIndex = 0
           }
           this.$emit('update:selected', this.names[newIndex])
+          this.select(newIndex)
           setTimeout(run, 2000)
         }
-        setTimeout(run, 2000)
+        // setTimeout(run, 2000)
       },
       select(index) {
         this.$emit('update:selected', this.names[index])
@@ -64,13 +66,12 @@
         return this.selected || first.name
       },
       updateSlideItem() {
-        let first = this.$children[0]
         let selected = this.getSelected()
         this.$children.forEach((vm) => {
-          vm.selected = selected
-          let newIndex = this.names.indexOf(selected)
-          let oldIndex = this.names.indexOf(vm.name)
-          vm.reverse = newIndex > oldIndex ? false : true
+          vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+          this.$nextTick(()=>{
+            vm.selected = selected
+          })
         })
       }
     },
@@ -78,7 +79,7 @@
       this.updateSlideItem()
       this.playAutomatically()
       this.childrenLength = this.$children.length
-
+      this.lastSelectedIndex = this.selected
     },
     updated() {
       this.updateSlideItem()
