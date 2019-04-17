@@ -37,9 +37,12 @@
   .box {
     height: 200px;
     width: 100%;
-  
-    border: 1px solid red;
-    background: #ddd;
+    
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ccc;
   }
 </style>
 <script>

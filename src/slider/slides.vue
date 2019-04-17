@@ -1,5 +1,8 @@
 <template>
-  <div class="vparts-slides">
+  <div class="vparts-slides"
+       @mouseenter="onMouseEnter"
+       @mouseleave="onMouseLeave"
+  >
     <div class="vparts-slides-window">
       <div class="vparts-slides-wrapper">
         <slot></slot>
@@ -38,13 +41,17 @@
     data() {
       return {
         childrenLength: 0,
-        lastSelectedIndex: undefined
+        lastSelectedIndex: undefined,
+        timerId: undefined
       }
     },
     methods: {
       playAutomatically() {
-        let index = this.names.indexOf(this.getSelected())
+        if (this.timerId) {
+          return
+        }
         let run = () => {
+          let index = this.names.indexOf(this.getSelected())
           let newIndex = index - 1
           if (newIndex === -1) {
             newIndex = this.names.length - 1
@@ -54,9 +61,19 @@
           }
           this.$emit('update:selected', this.names[newIndex])
           this.select(newIndex)
-          setTimeout(run, 2000)
+          this.timerId = setTimeout(run, 2000)
         }
-        // setTimeout(run, 2000)
+        this.timerId = setTimeout(run, 2000)
+      },
+      pause() {
+        window.clearTimeout(this.timerId)
+        this.timerId = undefined
+      },
+      onMouseEnter() {
+        this.pause()
+      },
+      onMouseLeave() {
+        this.playAutomatically()
       },
       select(index) {
         this.$emit('update:selected', this.names[index])
@@ -68,8 +85,15 @@
       updateSlideItem() {
         let selected = this.getSelected()
         this.$children.forEach((vm) => {
-          vm.reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
-          this.$nextTick(()=>{
+          let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
+          if(this.lastSelectedIndex === this.$children.length-1&&this.selectedIndex===0) {
+            reverse = false
+          }
+          if(this.lastSelectedIndex ===0 &&this.selectedIndex===this.$children.length-1) {
+            reverse = true
+          }
+          vm.reverse = reverse
+          this.$nextTick(() => {
             vm.selected = selected
           })
         })
@@ -94,14 +118,16 @@
     &-window {
       overflow: hidden;
     }
-    &-dots{
-      >span{
-        &.active{
+    
+    &-dots {
+      > span {
+        &.active {
           background: red;
         }
       }
       
     }
+    
     &-wrapper {
       position: relative;
     }
