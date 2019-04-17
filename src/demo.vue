@@ -92,7 +92,7 @@
         currentPage: 1,
         source:[],
         selectedSource: [],
-        selectedSlide: '2'
+        selectedSlide: undefined
       };
     },
     methods: {

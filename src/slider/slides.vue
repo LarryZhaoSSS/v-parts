@@ -12,7 +12,7 @@
       <span v-for="n in childrenLength"
             :class="{active: selectedIndex === n-1}"
             @click="select(n-1)"
-      >{{n-1}}</span>
+      >{{n}}</span>
     </div>
   </div>
 </template>
@@ -52,9 +52,9 @@
         }
         let run = () => {
           let index = this.names.indexOf(this.getSelected())
-          let newIndex = index - 1
+          let newIndex = index + 1
           if (newIndex === -1) {
-            newIndex = this.names.length - 1
+            newIndex = this.names.length + 1
           }
           if (newIndex === this.names.length) {
             newIndex = 0
@@ -120,10 +120,31 @@
     }
     
     &-dots {
+      padding: 8px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       > span {
-        &.active {
-          background: red;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 8px;
+        background: #ddd;
+        font-size: 12px;
+        &:hover{
+          cursor: pointer;
         }
+        &.active {
+          background: black;
+          color: white;
+          &:hover{
+            cursor: pointer;
+          }
+        }
+        
       }
       
     }
