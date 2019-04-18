@@ -12,17 +12,25 @@
       </div>
     </div>
     <div class="vparts-slides-dots">
+      <span @click="onClickPrev">
+        <v-icon name="left"></v-icon>
+      </span>
       <span v-for="n in childrenLength"
             :class="{active: selectedIndex === n-1}"
             @click="select(n-1)"
       >{{n}}</span>
+      <span @click="onClickNext">
+        <v-icon name="right"></v-icon>
+      </span>
     </div>
   </div>
 </template>
 
 <script>
+  import VIcon from '../icon'
   export default {
     name: 'VParts-slides',
+    components: {VIcon},
     props: {
       selected: {
         type: String
@@ -35,11 +43,14 @@
     computed: {
       selectedIndex() {
         let index = this.names.indexOf(this.selected)
-        return index === -1?0 : index
+        return index === -1 ? 0 : index
       },
       names() {
-        return this.$children.map(vm => vm.name)
+        return this.items.map(vm => vm.name)
 
+      },
+      items () {
+        return this.$children.filter(vm=>vm.$options.name === 'VPartsSlidesItem')
       }
     },
     data() {
@@ -47,10 +58,16 @@
         childrenLength: 0,
         lastSelectedIndex: undefined,
         timerId: undefined,
-        startTouch:undefined,
+        startTouch: undefined,
       }
     },
     methods: {
+      onClickPrev () {
+        this.select(this.selectedIndex - 1)
+      },
+      onClickNext () {
+        this.select(this.selectedIndex + 1)
+      },
       onTouchStart(e) {
         this.pause()
         if (e.touches.length > 1) {
@@ -63,13 +80,13 @@
       },
       onTouchEnd(e) {
         let endTouch = e.changedTouches[0]
-        let {clientX:x1,clientY:y1} = this.startTouch
-        let {clientX:x2, clientY:y2} = endTouch
-        if(endTouch.clientX >  this.startTouch.clientX) {
+        let {clientX: x1, clientY: y1} = this.startTouch
+        let {clientX: x2, clientY: y2} = endTouch
+        if (endTouch.clientX > this.startTouch.clientX) {
           console.log('right')
         }
-        let distance = Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2))
-        let deltaY = Math.abs(y2-y1)
+        let distance = Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2))
+        let deltaY = Math.abs(y2 - y1)
         let rate = distance / deltaY
         if (rate > 2) {
           console.log('在滑动')
@@ -113,7 +130,7 @@
       select(newIndex) {
         this.lastSelectedIndex = this.selectedIndex
         if (newIndex === -1) {
-          newIndex = this.names.length + 1
+          newIndex = this.names.length - 1
         }
         if (newIndex === this.names.length) {
           newIndex = 0
@@ -121,17 +138,17 @@
         this.$emit('update:selected', this.names[newIndex])
       },
       getSelected() {
-        let first = this.$children[0]
+        let first = this.items[0]
         return this.selected || first.name
       },
       updateSlideItem() {
         let selected = this.getSelected()
-        this.$children.forEach((vm) => {
+        this.items.forEach((vm) => {
           let reverse = this.selectedIndex > this.lastSelectedIndex ? false : true
-          if (this.lastSelectedIndex === this.$children.length - 1 && this.selectedIndex === 0) {
+          if (this.lastSelectedIndex === this.items.length - 1 && this.selectedIndex === 0) {
             reverse = false
           }
-          if (this.lastSelectedIndex === 0 && this.selectedIndex === this.$children.length - 1) {
+          if (this.lastSelectedIndex === 0 && this.selectedIndex === this.items.length - 1) {
             reverse = true
           }
           vm.reverse = reverse
@@ -144,7 +161,7 @@
     mounted() {
       this.updateSlideItem()
       this.playAutomatically()
-      this.childrenLength = this.$children.length
+      this.childrenLength = this.items.length
       this.lastSelectedIndex = this.selected
     },
     updated() {
