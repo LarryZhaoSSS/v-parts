@@ -17,6 +17,7 @@
       </span>
       <span v-for="n in childrenLength"
             :class="{active: selectedIndex === n-1}"
+            :data-index="n-1"
             @click="select(n-1)"
       >{{n}}</span>
       <span @click="onClickNext">
@@ -37,7 +38,7 @@
       },
       autoPlay: {
         type: Boolean,
-        default: true
+        default: false
       }
     },
     computed: {
@@ -160,7 +161,9 @@
     },
     mounted() {
       this.updateSlideItem()
-      this.playAutomatically()
+      if(this.autoPlay) {
+        this.playAutomatically()
+      }
       this.childrenLength = this.items.length
       this.lastSelectedIndex = this.selected
     },
