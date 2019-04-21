@@ -15,7 +15,8 @@ describe('slides.vue', () => {
     Vue.component('VSlidesItem', VSlidesItem)
     const wrapper = mount(Slides, {
       propsData:{
-        autoPlay: true
+        autoPlay: true,
+        selected: '1'
       },
 
       slots: {
@@ -33,16 +34,17 @@ describe('slides.vue', () => {
     console.log('-----html-----')
     setTimeout(()=>{
       console.log(wrapper.find('.box1').element)
-      expect(wrapper.find('.box1').element).to.exist
+      expect(wrapper.find('.box1').exists()).to.be.true
       done()
     },50)
 
   })
-  it('点击第二个就展示第二个',(done)=>{
+  it('selected是几，就是几',()=>{
     Vue.component('VSlidesItem', VSlidesItem)
     const wrapper = mount(Slides, {
       propsData:{
-        autoPlay: true
+        autoPlay: true,
+        selected: '2'
       },
 
       slots: {
@@ -58,10 +60,9 @@ describe('slides.vue', () => {
       }
     })
     setTimeout(()=>{
-      console.log(wrapper.html())
-      wrapper.find('[data-index="1"]').trigger('click')
-      // expect(wrapper.find('.box2').element).to.exist
-      done()
-    },50)
+      expect(wrapper.find('box2').exists()).to.be.true
+    })
   })
+
+
 })
