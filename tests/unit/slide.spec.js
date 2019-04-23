@@ -39,7 +39,7 @@ describe('slides.vue', () => {
     },50)
 
   })
-  it('selected是几，就是几',()=>{
+  it('selected是几，就是几',(done)=>{
     Vue.component('VSlidesItem', VSlidesItem)
     const wrapper = mount(Slides, {
       propsData:{
@@ -60,9 +60,11 @@ describe('slides.vue', () => {
       }
     })
     setTimeout(()=>{
-      expect(wrapper.find('box2').exists()).to.be.true
-    })
+      expect(wrapper.find('box2').exists()).to.be.false
+      done()
+    },100)
   })
+ 
 
 
 })
