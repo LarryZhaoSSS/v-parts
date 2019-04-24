@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8d0c950b-d0c7-4226-a1b3-5738e1bd53e9" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/src/button/button.vue.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/src/button/button.vue.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/src/button/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/src/button/index.html" afterDir="false" />
@@ -12,12 +11,14 @@
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/src/slider/slides-item.vue.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/src/slider/slides-item.vue.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/src/slider/slides.vue.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/src/slider/slides.vue.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/src/svg.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/src/svg.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/src/validate.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/src/validate.js.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/tests/unit/button.spec.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/tests/unit/button.spec.js.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/tests/unit/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/tests/unit/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov-report/tests/unit/slide.spec.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/tests/unit/slide.spec.js.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage/lcov-report/tests/unit/validate.spec.js.html" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov-report/tests/unit/validate.spec.js.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/coverage/lcov.info" beforeDir="false" afterPath="$PROJECT_DIR$/coverage/lcov.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/karma.conf.js" beforeDir="false" afterPath="$PROJECT_DIR$/karma.conf.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/unit/slide.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/slide.spec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/validate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/unit/validate.spec.js" beforeDir="false" afterPath="$PROJECT_DIR$/tests/unit/validate.spec.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -49,22 +50,22 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/validate.js">
+        <entry file="file://$PROJECT_DIR$/tests/unit/validate.spec.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+            <state relative-caret-position="431">
+              <caret line="104" selection-start-line="104" selection-end-line="104" />
+              <folding>
+                <element signature="e#0#33#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tests/unit/validate.spec.js">
+        <entry file="file://$PROJECT_DIR$/src/validate.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="508">
-              <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
-              <folding>
-                <element signature="e#0#33#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="470">
+              <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -100,8 +101,8 @@
         <option value="$PROJECT_DIR$/tests/unit/slide.spec.js" />
         <option value="$PROJECT_DIR$/karma.conf.js" />
         <option value="$PROJECT_DIR$/tests/validate.spec.js" />
-        <option value="$PROJECT_DIR$/src/validate.js" />
         <option value="$PROJECT_DIR$/tests/unit/validate.spec.js" />
+        <option value="$PROJECT_DIR$/src/validate.js" />
       </list>
     </option>
   </component>
@@ -113,7 +114,7 @@
     <auto-save>true</auto-save>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="566" />
+    <option name="x" value="473" />
     <option name="y" value="23" />
     <option name="width" value="1177" />
     <option name="height" value="720" />
@@ -227,15 +228,15 @@
       <workItem from="1555830027317" duration="29000" />
       <workItem from="1555830089039" duration="3093000" />
       <workItem from="1555944397145" duration="612000" />
-      <workItem from="1556032217588" duration="1227000" />
+      <workItem from="1556032217588" duration="3759000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="55258000" />
+    <option name="totallyTimeSpent" value="57790000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="566" y="23" width="1177" height="720" extended-state="0" />
+    <frame x="473" y="23" width="1177" height="720" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="npm" order="0" side_tool="true" />
@@ -452,13 +453,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/karma.conf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/slide.spec.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
@@ -480,20 +474,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/validate.js">
+    <entry file="file://$PROJECT_DIR$/karma.conf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
+        <state relative-caret-position="75">
+          <caret line="3" column="36" selection-start-line="3" selection-start-column="36" selection-end-line="3" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/tests/unit/validate.spec.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="51" column="37" selection-start-line="51" selection-start-column="37" selection-end-line="51" selection-end-column="37" />
+        <state relative-caret-position="431">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
           <folding>
             <element signature="e#0#33#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/validate.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="470">
+          <caret line="19" column="38" selection-start-line="19" selection-start-column="38" selection-end-line="19" selection-end-column="38" />
         </state>
       </provider>
     </entry>

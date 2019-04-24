@@ -20,24 +20,24 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">93.75% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>10/10</span>
+        <span class='fraction'>30/32</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>10/10</span>
+        <span class='fraction'>20/24</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>2/2</span>
+        <span class='fraction'>5/6</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">100% </span>
+        <span class="strong">93.75% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>10/10</span>
+        <span class='fraction'>30/32</span>
       </div>
     </div>
   </div>
@@ -59,45 +59,183 @@
 14
 15
 16
-17</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4×</span>
-<span class="cline-any cline-yes">4×</span>
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-yes">8×</span>
 <span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">8×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">4×</span>
 <span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">2×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">4×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-yes">5×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export default function validate(data, rules) {
   let errors = {}
   rules.forEach((rule) =&gt; {
     let value = data[rule.key]
     if (rule.required) {
-      if (value !== 0 &amp;&amp; !value) {
-        errors[rule.key] = {required: '必填'}
+      let error = validate.required(value)
+      if (error) {
+        ensureObject(errors, rule.key)
+        errors[rule.key].required = error
+        return
       }
+      // if (value !== 0 &amp;&amp; !value) {
+      //   errors[rule.key] = {required: '必填'}
+      //   return
+      // }
     }
-    if(rule.pattern) {
-      if(rule.pattern.test(value)=== false){
-        errors[rule.key] = {pattern:'邮箱格式不正确'}
+    if (rule.pattern) {
+      let error = validate.pattern(value, rule.pattern)
+      if (error) {
+        ensureObject(errors, rule.key)
+        errors[rule.key].pattern = error
+      }
+      // if (rule.pattern === 'email') {
+      //   rule.pattern = /^.+@.+$/
+      // }
+      // if (rule.pattern.test(value) === false) {
+      //   ensureObject(errors, rule.key)
+      //   errors[rule.key].pattern = '邮箱格式不正确'
+      // }
+    }
+    if (rule.minLength) {
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (value.length &lt; rule.minLength) {
+        ensureObject(errors, rule.key)
+        errors[rule.key].minLength = '邮箱太短'
       }
     }
   })
   return errors
+}
+validate.required = (value) =&gt; {
+  if (value !== 0 &amp;&amp; !value) {
+    return '必填'
+  }
+}
+validate.pattern = (value, pattern) =&gt; {
+  if (pattern === 'email') {
+    pattern = /^.+@.+$/
+  }
+  if (pattern.test(value) === false) {
+    return '邮箱格式不正确'
+  }
+}
+validate.minLength = (value, minLength) =&gt; <span class="fstat-no" title="function not covered" >{</span>
+<span class="cstat-no" title="statement not covered" >  if (value.length &lt; minLength) {</span>
+<span class="cstat-no" title="statement not covered" >    return '邮箱太短'</span>
+  }
+}
+&nbsp;
+function ensureObject(obj, key) {
+  <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof obj[key] !== 'object') {
+    obj[key] = {}
+  }
 }</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Tue Apr 23 2019 23:31:05 GMT+0800 (CST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Apr 24 2019 08:04:10 GMT+0800 (CST)
 </div>
 </div>
 <script src="../prettify.js"></script>
