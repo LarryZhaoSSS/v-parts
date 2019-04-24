@@ -5,15 +5,44 @@
     <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
     -->
     <!-- <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager> -->
-    
-    <v-cascade @update:selected="updateSelected" :source.sync="source" :selected.sync="selectedSource" popover-height="200px"></v-cascade>
-  
-    <div style="padding: 20px;">
-      <v-cascade :source.sync="source" popover-height="200px"
-                  :selected.sync="selectedSource" :load-data="loadData"></v-cascade>
-    </div>
-    {{selectedSource.map(item=> item.name)}}
-  
+    <!-- <v-nav :selected.sync="selected">
+      <v-nav-item name="home">
+        首页
+      </v-nav-item>
+      <v-sub-nav name="about">
+        <template slot="title">关于</template>
+        <v-nav-item name="culture">企业文化</v-nav-item>
+        <v-nav-item name="develop">开发团队</v-nav-item>
+        <v-sub-nav name="contact">
+          <template slot="title">联系方式</template>
+           <v-nav-item name="wechat">微信</v-nav-item>
+          <v-sub-nav name="phone">
+            <template slot="title">手机</template>
+            <v-nav-item name="yidong">移动</v-nav-item>
+            <v-nav-item name="dianxin">电信</v-nav-item>
+          </v-sub-nav>
+        </v-sub-nav>
+      </v-sub-nav>
+      <v-nav-item name="job">招聘</v-nav-item>
+    </v-nav>-->
+    <v-nav :selected.sync="selected" vertical style="width: 200px;margin:20px;">
+      <v-nav-item name="home">首页</v-nav-item>
+      <v-sub-nav name="about">
+        <template slot="title">关于</template>
+        <v-nav-item name="culture">企业文化</v-nav-item>
+        <v-nav-item name="develop">开发团队</v-nav-item>
+        <v-sub-nav name="contact">
+          <template slot="title">联系方式</template>
+          <v-nav-item name="wechat">微信</v-nav-item>
+          <v-sub-nav name="phone">
+            <template slot="title">手机</template>
+            <v-nav-item name="yidong">移动</v-nav-item>
+            <v-nav-item name="dianxin">电信</v-nav-item>
+          </v-sub-nav>
+        </v-sub-nav>
+      </v-sub-nav>
+      <v-nav-item name="job">招聘</v-nav-item>
+    </v-nav>
   </div>
 </template>
 <style>
@@ -22,50 +51,40 @@
   }
 </style>
 <script>
-  import GButton from './button/button';
-  import VPager from './pager';
-  import VCascade from './cascade/cascade';
-  import db from './db'
-  
 
-  function ajax(parentId = 0) {
-    return new Promise((success, fail) => {
-      setTimeout(() => {
-        let result = db.filter((item) => item.parent_id == parentId)
-        result.forEach(node => {
-          if (db.filter(item => item.parent_id === node.id).length > 0) {
-            node.isLeaf = false
-          }else{
-            node.isLeaf = true
-          }
-        })
-        success(result)
-      }, 1000)
-    })
-  }
-  
-  console.log(ajax())
-  export default {
-    name: 'demo',
-    components: {
-      GButton,
-      VPager,
-      VCascade
-    },
-    data() {
-      return {
-        d: [],
-        scope: [new Date(1958, 1), new Date(2118, 5)],
-        isLoading: true,
-        message: 'hi',
-        selectedTab: 'sports',
-        selectedTabs: ['1', '2'],
-        singleTabs: ['1'],
-        currentPage: 1,
-        source:[],
-        selectedSource: []
-      };
-    },
+import GButton from './button/button'
+import VPager from './pager'
+import VNav from './nav/nav'
+import VNavItem from './nav/nav-item'
+import VSubNav from './nav/sub-nav'
+export default {
+  name: "demo",
+  components: {
+    GButton,
+    VPager,
+    VNav,
+    VNavItem,
+    VSubNav
+
+  },
+  watch: {
+    selected(newValue) {
+      console.log(newValue)
+    }
+  },
+  data() {
+    return {
+      d: [],
+      scope: [new Date(1958, 1), new Date(2118, 5)],
+      isLoading: true,
+      message: "hi",
+      selectedTab: 'sports',
+      selectedTabs: ['1', '2'],
+      singleTabs: ['1'],
+      currentPage: 1,
+      selected: 'home'
+    };
+  },
     methods: {
       updateSelected () {
         if (this.selectedSource[0]) {
@@ -101,6 +120,4 @@
   body {
     background: white;
   }
-</style>
-<style scoped lang="scss">
 </style>
