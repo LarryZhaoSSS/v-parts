@@ -1,29 +1,13 @@
 <template>
   <div class="page" style="position:relative;">
-    <!-- <g-button>默认按钮</g-button>
-    <g-button icon="setting">love js</g-button>
-    <g-button icon="setting" :loading="isLoading" @click="isLoading = !isLoading">js love</g-button>
-    -->
-    <!-- <v-pager :hideIfOnePage="false" :totalPage="10" :currentPage.sync="currentPage"></v-pager> -->
+    <v-uploader accept="image/*"
+              action="http://localhost:3000/upload" name="file"
+              :fielList.sync="fileList">
+      
+      <button>上传</button>
+      <template slot="tips"><div>只能上传300kg内的png. jpeg文件</div></template>
+    </v-uploader>
     
-<!--    <v-cascade @update:selected="updateSelected" :source.sync="source" :selected.sync="selectedSource" popover-height="200px"></v-cascade>-->
-<!--  -->
-<!--    <div style="padding: 20px;">-->
-<!--      <v-cascade :source.sync="source" popover-height="200px"-->
-<!--                  :selected.sync="selectedSource" :load-data="loadData"></v-cascade>-->
-<!--    </div>-->
-    
-    <v-slides class="slide-wrapper" :selected.sync="selectedSlide">
-      <v-slides-item name="1">
-        <div class="box">1</div>
-      </v-slides-item>
-      <v-slides-item name="2">
-        <div class="box">2</div>
-      </v-slides-item>
-      <v-slides-item name="3">
-        <div class="box">3</div>
-      </v-slides-item>
-    </v-slides>
   
   </div>
 </template>
@@ -31,9 +15,10 @@
   /*.page {*/
   /*  padding: 100px;*/
   /*}*/
-  .slide-wrapper{
+  .slide-wrapper {
     margin: 40px;
   }
+  
   .box {
     height: 200px;
     width: 100%;
@@ -51,8 +36,9 @@
   import VCascade from './cascade/cascade';
   import VSlides from './slider/slides'
   import VSlidesItem from './slider/slides-item'
+  import VUploader from './uploader'
   import db from './db'
-  
+
 
   function ajax(parentId = 0) {
     return new Promise((success, fail) => {
@@ -61,7 +47,7 @@
         result.forEach(node => {
           if (db.filter(item => item.parent_id === node.id).length > 0) {
             node.isLeaf = false
-          }else{
+          } else {
             node.isLeaf = true
           }
         })
@@ -69,7 +55,7 @@
       }, 1000)
     })
   }
-  
+
   console.log(ajax())
   export default {
     name: 'demo',
@@ -78,7 +64,8 @@
       VPager,
       VCascade,
       VSlides,
-      VSlidesItem
+      VSlidesItem,
+      VUploader
     },
     data() {
       return {
@@ -90,9 +77,10 @@
         selectedTabs: ['1', '2'],
         singleTabs: ['1'],
         currentPage: 1,
-        source:[],
+        source: [],
         selectedSource: [],
-        selectedSlide: undefined
+        selectedSlide: undefined,
+        fileList: []
       };
     },
     methods: {
@@ -113,7 +101,7 @@
       // },
     },
     created() {
-      ajax(0).then(result=>{
+      ajax(0).then(result => {
         // console.log(result)
         this.source = result
       })
