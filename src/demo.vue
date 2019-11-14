@@ -1,13 +1,17 @@
 <template>
   <div class="page" style="position:relative;">
     <v-uploader accept="image/*"
-              action="http://localhost:3000/upload" name="file"
-              :fielList.sync="fileList">
+                action="https://sss-image-server.herokuapp.com/upload"
+                method="POST"
+                name="file"
+                :fielList.sync="fileList">
       
       <button>上传</button>
-      <template slot="tips"><div>只能上传300kg内的png. jpeg文件</div></template>
+      <template slot="tips">
+        <div>只能上传300kg内的png. jpeg文件</div>
+      </template>
     </v-uploader>
-    
+  
   
   </div>
 </template>
