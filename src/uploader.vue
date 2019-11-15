@@ -4,6 +4,12 @@
       <slot></slot>
     </div>
     <div ref="temp" style="width:0;height:0;overflow:hidden;"></div>
+    <ol>
+      <li v-for="file in fileList" :key="file.name">
+        <img :src="file.url" width="100" height="100" alt="">
+        {{ file.name }}
+      </li>
+    </ol>
   </div>
 </template>
 <script>
@@ -21,27 +27,56 @@
       action: {
         type: String,
         required: true
+      },
+      parseResponse:{
+        type:Function,
+        required:true
+      },
+      fileList:{
+        type: Array,
+        default:()=>[]
+      }
+      
+    },
+    data() {
+      return {
+        url:'about:blank'
       }
     },
     methods: {
       onClickUpload() {
+       let input = this.createInput()
+        input.addEventListener('change', () => {
+          let file = input.files[0]
+         this.uploadFile(file)
+          input.remove()
+
+        })
+        input.click()
+      },
+      createInput() {
         let input = document.createElement('input')
         input.type = 'file'
         this.$refs.temp.appendChild(input)
-        input.addEventListener('change', () => {
-          console.log(input.files[0])
-          let file = input.files[0]
-          input.remove()
-          let formData = new FormData()
-          formData.append(this.name, file)
-          let xhr = new XMLHttpRequest()
-          xhr.open(this.method, this.action)
-          xhr.onload = () => {
-            console.log(xhr.response)
-          }
-          xhr.send(formData)
+        return input
+      },
+      uploadFile(file) {
+        let formData = new FormData()
+        formData.append(this.name, file)
+        let {name, size, type} = file
+        this.postRequest(formData,(response)=>{
+          this.url = this.parseResponse(response)
+          let url = this.url
+          this.$emit('update:fileList',[...this.fileList,{name,type,size,url}])
         })
-        input.click()
+      },
+      postRequest(formData,success) {
+        let xhr = new XMLHttpRequest()
+        xhr.open(this.method, this.action)
+        xhr.onload = ()=>{
+          success(xhr.response)
+        }
+        xhr.send(formData)
       }
     }
   }

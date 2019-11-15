@@ -4,7 +4,9 @@
                 action="https://sss-image-server.herokuapp.com/upload"
                 method="POST"
                 name="file"
-                :fielList.sync="fileList">
+                :file-list.sync="fileList"
+                :parse-response="parseResponse"
+    >
       
       <button>上传</button>
       <template slot="tips">
@@ -103,6 +105,11 @@
       //     updateSource(result) // 回调:把别人传给我的函数调用一下
       //   })
       // },
+      parseResponse(response) {
+        const object = JSON.parse(response)
+        const url = `https://sss-image-server.herokuapp.com/preview/${object.id}`
+        return url
+      }
     },
     created() {
       ajax(0).then(result => {
