@@ -8,6 +8,7 @@
       <li v-for="file in fileList" :key="file.name">
         <img :src="file.url" width="100" height="100" alt="">
         {{ file.name }}
+        <button @click="onRemoveFile(file)">X</button>
       </li>
     </ol>
   </div>
@@ -54,6 +55,15 @@
         })
         input.click()
       },
+      onRemoveFile(file) {
+        let answer = window.confirm('你确定要删除这个文件')
+        if(answer) {
+          let copy = [...this.fileList]
+          let index = copy.indexOf(file)
+          copy.splice(index,1)
+          this.$emit('update:fileList',copy)
+        }
+      },
       createInput() {
         let input = document.createElement('input')
         input.type = 'file'
@@ -69,9 +79,9 @@
           this.url = url
           while(this.fileList.filter(f=>f.name===name).length>0) {
             let dotIndex = name.lastIndexOf('.')
-            let nameWithoutExtention = name.substring(0,dotIndex)
-            let extention = name.substring(dotIndex)
-            name = nameWithoutExtention + '(1)' +extention
+            let prefix = name.substring(0,dotIndex)
+            let suffix = name.substring(dotIndex)
+            name = prefix + '(1)' +suffix
           }
           this.$emit('update:fileList',[...this.fileList,{name,type,size,url}])
         })
