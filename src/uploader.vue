@@ -65,8 +65,14 @@
         formData.append(this.name, file)
         let {name, size, type} = file
         this.postRequest(formData,(response)=>{
-          this.url = this.parseResponse(response)
-          let url = this.url
+          let url = this.parseResponse(response)
+          this.url = url
+          while(this.fileList.filter(f=>f.name===name).length>0) {
+            let dotIndex = name.lastIndexOf('.')
+            let nameWithoutExtention = name.substring(0,dotIndex)
+            let extention = name.substring(dotIndex)
+            name = nameWithoutExtention + '(1)' +extention
+          }
           this.$emit('update:fileList',[...this.fileList,{name,type,size,url}])
         })
       },
