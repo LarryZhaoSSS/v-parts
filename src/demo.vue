@@ -1,5 +1,5 @@
 <template>
-  <div class="page" style="position:relative;">
+  <div class="page" style="position:relative; margin-top:40px;">
     <v-uploader accept="image/*"
                 action="https://sss-image-server.herokuapp.com/upload"
                 method="POST"
@@ -8,7 +8,7 @@
                 :parse-response="parseResponse"
     >
       
-      <button>上传</button>
+      <GButton >上传</GButton>
       <template slot="tips">
         <div>只能上传300kg内的png. jpeg文件</div>
       </template>

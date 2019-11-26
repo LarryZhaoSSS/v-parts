@@ -3,22 +3,36 @@
     <div @click="onClickUpload" ref="trigger">
       <slot></slot>
     </div>
-    <div ref="temp" style="width:0;height:0;overflow:hidden;"></div>
-    <ol>
+    <template slot="tips"></template>
+    <ol class="v-parts-uploader-fileList">
       <li v-for="file in fileList" :key="file.name">
-        <template v-if="file.status === 'uploading'">菊花</template>
-        <template v-else>
-          <img :src="file.url" width="100" height="100" alt="">
-          {{ file.name }}
-          <button @click="onRemoveFile(file)">X</button>
+        <template v-if="file.status === 'uploading'">
+          <g-icon class="v-parts-uploader-spin" name="loading"></g-icon>
         </template>
+        <template v-else-if="file.type.indexOf('image')===0">
+          <img :src="file.url" class="v-parts-uploader-image" width="32" height="32" alt="">
+        
+        </template>
+        <template v-else>
+          <div class="v-parts-uploader-defaultImage">
+          </div>
+        </template>
+        
+        <span class="v-parts-uploader-name" :class="{[file.status]:file.status}"> {{ file.name }}</span>
+        <button class="v-parts-uploader-remove" @click="onRemoveFile(file)">X</button>
       </li>
     </ol>
+    <div ref="temp" style="width:0;height:0;overflow:hidden;"></div>
   </div>
 </template>
 <script>
+  import GIcon from './icon'
+
   export default {
     name: 'VPartsUploader',
+    components: {
+      GIcon
+    },
     props: {
       name: {
         type: String,
@@ -32,27 +46,27 @@
         type: String,
         required: true
       },
-      parseResponse:{
-        type:Function,
-        required:true
+      parseResponse: {
+        type: Function,
+        required: true
       },
-      fileList:{
+      fileList: {
         type: Array,
-        default:()=>[]
+        default: () => []
       }
-      
+
     },
     data() {
       return {
-        url:'about:blank'
+        url: 'about:blank'
       }
     },
     methods: {
       onClickUpload() {
-       let input = this.createInput()
+        let input = this.createInput()
         input.addEventListener('change', () => {
           let file = input.files[0]
-         this.uploadFile(file)
+          this.uploadFile(file)
           input.remove()
 
         })
@@ -60,11 +74,11 @@
       },
       onRemoveFile(file) {
         let answer = window.confirm('你确定要删除这个文件')
-        if(answer) {
+        if (answer) {
           let copy = [...this.fileList]
           let index = copy.indexOf(file)
-          copy.splice(index,1)
-          this.$emit('update:fileList',copy)
+          copy.splice(index, 1)
+          this.$emit('update:fileList', copy)
         }
       },
       createInput() {
@@ -73,16 +87,14 @@
         this.$refs.temp.appendChild(input)
         return input
       },
-      beforeUploadFile(rawFile,newName) {
-        let {type,size} = rawFile
+      beforeUploadFile(rawFile, newName) {
+        let {type, size} = rawFile
         console.log(this.fileList)
-        this.$emit('update:fileList',[...this.fileList,{name:newName,type,size,status:'uploading'}])
+        this.$emit('update:fileList', [...this.fileList, {name: newName, type, size, status: 'uploading'}])
 
       },
-      afterUploadFile(rawFile,newName,url) {
-        let {size,type} = rawFile
-        console.log(file)
-        let file = this.fileList.filter(f=>f.name===newName)[0]
+      afterUploadFile(newName, url) {
+        let file = this.fileList.filter(f => f.name === newName)[0]
         let index = this.fileList.indexOf(file)
         console.log(this.fileList)
         console.log(file)
@@ -90,10 +102,10 @@
         copy.url = url
         copy.status = 'success'
         let fileListCopy = [...this.fileList]
-        fileListCopy.splice(index,1,copy)
+        fileListCopy.splice(index, 1, copy)
         console.log('---update:fileList---')
         console.log(this.fileList)
-        this.$emit('update:fileList',fileListCopy)
+        this.$emit('update:fileList', fileListCopy)
       },
       uploadFile(rawFile) {
         let {name, size, type} = rawFile
@@ -101,38 +113,38 @@
         this.beforeUploadFile(rawFile, newName)
         let formData = new FormData()
         formData.append(this.name, rawFile)
-        this.postRequest(formData,(response)=>{
+        this.postRequest(formData, (response) => {
           let url = this.parseResponse(response)
           this.url = url
-          this.afterUploadFile(rawFile,newName,url)
-        },()=>{
+          this.afterUploadFile(newName, url)
+        }, () => {
           this.uploadError(newName)
         })
       },
       uploadError(newName) {
-        let file = this.fileList.filter(f=>f.name === newName)[0]
+        let file = this.fileList.filter(f => f.name === newName)[0]
         let index = this.fileList.indexOf(file)
         let fileCopy = JSON.parse(JSON.stringify(file))
         fileCopy.status = 'fail'
         let fileListCopy = [...this.fileList]
-        fileListCopy.splice(index , 1, fileCopy)
-        this.$emit('update:fileList',fileListCopy)
+        fileListCopy.splice(index, 1, fileCopy)
+        this.$emit('update:fileList', fileListCopy)
       },
-      generateName (name) {
-        while(this.fileList.filter(f=>f.name===name).length>0) {
+      generateName(name) {
+        while (this.fileList.filter(f => f.name === name).length > 0) {
           let dotIndex = name.lastIndexOf('.')
-          let prefix = name.substring(0,dotIndex)
+          let prefix = name.substring(0, dotIndex)
           let suffix = name.substring(dotIndex)
-          name = prefix + '(1)' +suffix
+          name = prefix + '(1)' + suffix
         }
         return name
       },
-      
-      postRequest(formData,success,fail) {
-        
+
+      postRequest(formData, success, fail) {
+
         let xhr = new XMLHttpRequest()
         xhr.open(this.method, this.action)
-        xhr.onload = ()=>{
+        xhr.onload = () => {
           success(xhr.response)
         }
         xhr.send(formData)
@@ -141,7 +153,52 @@
   }
 </script>
 <style scoped lang="scss">
+  @import "var";
+  
   .v-parts-uploader {
-    border: 1px solid red;
+    
+    &-fileList {
+      list-style: none;
+      
+      > li {
+        display: flex;
+        align-items: center;
+        margin: 8px 0;
+        border: 1px solid darken($grey, 10%);
+      }
+    }
+    
+    &-defaultImage {
+      margin-right: 8px;
+      height: 32px;
+      width: 32px;
+    }
+    
+    &-image {
+      margin-right: 8px;
+    }
+    
+    &-name {
+      margin-right: auto;
+      
+      &.success {
+        color: green;
+      }
+      
+      &.fail {
+        color: red;
+      }
+    }
+    
+    &-remove {
+      width: 32px;
+      height: 32px;
+    }
+    
+    &-spin {
+      width: 32px;
+      height: 32px;
+      animation: spin 0.2s infinite linear;
+    }
   }
 </style>
