@@ -6,7 +6,7 @@
     <template slot="tips"></template>
     <ol class="v-parts-uploader-fileList">
       <li v-for="file in fileList" :key="file.name">
-        <template v-if="file.status === 'uploading'">
+        <template v-if="file.status === 'uploading' ">
           <g-icon class="v-parts-uploader-spin" name="loading"></g-icon>
         </template>
         <template v-else-if="file.type.indexOf('image')===0">
@@ -198,7 +198,7 @@
     &-spin {
       width: 32px;
       height: 32px;
-      animation: spin 0.2s infinite linear;
+      @include spin;
     }
   }
 </style>
