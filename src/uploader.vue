@@ -53,7 +53,8 @@
       fileList: {
         type: Array,
         default: () => []
-      }
+      },
+      sizeLimit:{type:Number}
 
     },
     data() {
@@ -82,6 +83,7 @@
         }
       },
       createInput() {
+        this.$refs.temp.innerHTML = ''
         let input = document.createElement('input')
         input.type = 'file'
         this.$refs.temp.appendChild(input)
@@ -89,39 +91,42 @@
       },
       beforeUploadFile(rawFile, newName) {
         let {type, size} = rawFile
-        console.log(this.fileList)
-        this.$emit('update:fileList', [...this.fileList, {name: newName, type, size, status: 'uploading'}])
+        if(size > this.sizeLimit * 1024 * 1024) {
+          this.$emit('error','文件大于2MB')
+          return false
+        } else {
+          this.$emit('update:fileList', [...this.fileList, {name: newName, type, size, status: 'uploading'}])
+          return true
+        }
 
       },
       afterUploadFile(newName, url) {
         let file = this.fileList.filter(f => f.name === newName)[0]
         let index = this.fileList.indexOf(file)
-        console.log(this.fileList)
-        console.log(file)
         let copy = JSON.parse(JSON.stringify(file))
         copy.url = url
         copy.status = 'success'
         let fileListCopy = [...this.fileList]
         fileListCopy.splice(index, 1, copy)
-        console.log('---update:fileList---')
-        console.log(this.fileList)
         this.$emit('update:fileList', fileListCopy)
       },
       uploadFile(rawFile) {
         let {name, size, type} = rawFile
         let newName = this.generateName(name)
-        this.beforeUploadFile(rawFile, newName)
+        if(!this.beforeUploadFile(rawFile, newName)) {
+          return
+        }
         let formData = new FormData()
         formData.append(this.name, rawFile)
         this.postRequest(formData, (response) => {
           let url = this.parseResponse(response)
           this.url = url
           this.afterUploadFile(newName, url)
-        }, () => {
-          this.uploadError(newName)
+        }, xhr => {
+          this.uploadError(xhr, newName)
         })
       },
-      uploadError(newName) {
+      uploadError(xhr, newName) {
         let file = this.fileList.filter(f => f.name === newName)[0]
         let index = this.fileList.indexOf(file)
         let fileCopy = JSON.parse(JSON.stringify(file))
@@ -129,6 +134,11 @@
         let fileListCopy = [...this.fileList]
         fileListCopy.splice(index, 1, fileCopy)
         this.$emit('update:fileList', fileListCopy)
+        let error = ''
+        if (xhr.status === 0) {
+          error = '网络无法连接'
+        }
+        this.$emit('error',error)
       },
       generateName(name) {
         while (this.fileList.filter(f => f.name === name).length > 0) {
@@ -146,6 +156,9 @@
         xhr.open(this.method, this.action)
         xhr.onload = () => {
           success(xhr.response)
+        }
+        xhr.onerror = () => {
+          fail(xhr, xhr.status)
         }
         xhr.send(formData)
       }

@@ -4,8 +4,10 @@
                 action="https://sss-image-server.herokuapp.com/upload"
                 method="POST"
                 name="file"
+                :size-limit="3"
                 :file-list.sync="fileList"
                 :parse-response="parseResponse"
+                @error="alert"
     >
       
       <GButton >上传</GButton>
@@ -105,6 +107,9 @@
       //     updateSource(result) // 回调:把别人传给我的函数调用一下
       //   })
       // },
+      alert(error) {
+        window.alert(error || '上传失败')
+      },
       parseResponse(response) {
         const object = JSON.parse(response)
         const url = `https://sss-image-server.herokuapp.com/preview/${object.id}`
