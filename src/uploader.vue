@@ -66,8 +66,8 @@
       onClickUpload() {
         let input = this.createInput()
         input.addEventListener('change', () => {
-          let file = input.files[0]
-          this.uploadFile(file)
+          
+          this.uploadFiles(input.files)
           input.remove()
 
         })
@@ -85,7 +85,9 @@
       createInput() {
         this.$refs.temp.innerHTML = ''
         let input = document.createElement('input')
+        input.accept = "image/*"
         input.type = 'file'
+        input.multiple = true
         this.$refs.temp.appendChild(input)
         return input
       },
@@ -100,7 +102,7 @@
         }
 
       },
-      afterUploadFile(newName, url) {
+      afterUploadFiles(newName, url) {
         let file = this.fileList.filter(f => f.name === newName)[0]
         let index = this.fileList.indexOf(file)
         let copy = JSON.parse(JSON.stringify(file))
@@ -110,21 +112,30 @@
         fileListCopy.splice(index, 1, copy)
         this.$emit('update:fileList', fileListCopy)
       },
-      uploadFile(rawFile) {
-        let {name, size, type} = rawFile
-        let newName = this.generateName(name)
-        if(!this.beforeUploadFile(rawFile, newName)) {
-          return
+      uploadFiles(rawFiles) {
+        
+
+        let newNames = []
+        for (let i = 0; i < rawFiles.length; i++) {
+          let rawFile = rawFiles[i]
+          let {name, size, type} = rawFile
+          newNames[i] = this.generateName(name)
         }
-        let formData = new FormData()
-        formData.append(this.name, rawFile)
-        this.postRequest(formData, (response) => {
-          let url = this.parseResponse(response)
-          this.url = url
-          this.afterUploadFile(newName, url)
-        }, xhr => {
-          this.uploadError(xhr, newName)
-        })
+        if (!this.beforeUploadFile(rawFiles, newNames)) {return}
+        for (let i = 0; i < rawFiles.length; i++) {
+          let rawFile = rawFiles[i]
+          let newName = newNames[i]
+          let formData = new FormData()
+          formData.append(this.name, rawFile)
+          this.postRequest(formData, (response) => {
+            let url = this.parseResponse(response)
+            this.url = url
+            this.afterUploadFiles(newName, url)
+          }, xhr => {
+            this.uploadError(xhr, newName)
+          })
+        }
+        
       },
       uploadError(xhr, newName) {
         let file = this.fileList.filter(f => f.name === newName)[0]

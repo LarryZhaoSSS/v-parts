@@ -1,7 +1,7 @@
 <template>
   <div class="page" style="position:relative; margin-top:40px;">
     <v-uploader accept="image/*"
-                action="https://sss-image-server.herokuapp.com/upload"
+                action="http://localhost:3000/upload"
                 method="POST"
                 name="file"
                 :size-limit="3"
@@ -46,7 +46,7 @@
   import VSlidesItem from './slider/slides-item'
   import VUploader from './uploader'
   import db from './db'
-
+// https://sss-image-server.herokuapp.com/upload
 
   function ajax(parentId = 0) {
     return new Promise((success, fail) => {
@@ -112,7 +112,7 @@
       },
       parseResponse(response) {
         const object = JSON.parse(response)
-        const url = `https://sss-image-server.herokuapp.com/preview/${object.id}`
+        const url = `http://localhost:3000/preview/${object.id}`
         return url
       }
     },
