@@ -27,7 +27,7 @@
 </template>
 <script>
   import GIcon from './icon'
-
+  import {http} from './http'
   export default {
     name: 'VPartsUploader',
     components: {
@@ -91,15 +91,21 @@
         this.$refs.temp.appendChild(input)
         return input
       },
-      beforeUploadFile(rawFile, newName) {
-        let {type, size} = rawFile
-        if(size > this.sizeLimit * 1024 * 1024) {
-          this.$emit('error','文件大于2MB')
-          return false
-        } else {
-          this.$emit('update:fileList', [...this.fileList, {name: newName, type, size, status: 'uploading'}])
-          return true
+      beforeUploadFile(rawFiles, newNames) {
+        rawFiles = Array.from(rawFiles)
+        for (let i = 0; i < rawFiles.length; i++) {
+          let {size, type} = rawFiles[i]
+          if (size > this.sizeLimit * 1024 * 1024) {
+            this.$emit('error', '文件大于2MB')
+            return false
+          }
         }
+        let x = rawFiles.map((rawFile, i) => {
+          let {type, size} = rawFile
+          return {name: newNames[i], type, size, status: 'uploading'}
+        })
+        this.$emit('update:fileList', [...this.fileList, ...x])
+        return true
 
       },
       afterUploadFiles(newName, url) {
@@ -163,15 +169,11 @@
 
       postRequest(formData, success, fail) {
 
-        let xhr = new XMLHttpRequest()
-        xhr.open(this.method, this.action)
-        xhr.onload = () => {
-          success(xhr.response)
-        }
-        xhr.onerror = () => {
-          fail(xhr, xhr.status)
-        }
-        xhr.send(formData)
+        http(this.method,this.action,{
+          success,
+          fail,
+          data: formData
+        })
       }
     }
   }
