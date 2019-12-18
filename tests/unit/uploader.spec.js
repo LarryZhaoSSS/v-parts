@@ -5,16 +5,24 @@ import {shallowMount, mount} from '@vue/test-utils'
 
 chai.use(sinonChai)
 import Uploader from '../../src/uploader'
-
+import http from '../../src/http'
 describe('uploader.vue', () => {
   it('uploader存在.', () => {
     expect(Uploader).to.exist
   })
   it('可以上传一个文件', () => {
+    http.post = (url,options)=>{
+     // setTimeout(()=>{
+     //   options.success(`{"id":"123"}`)
+     //
+     // },100)
+      console.log('aaaaa')
+    }
     const wrapper = mount(Uploader, {
       propsData: {
         name: 'file',
-        action: '/xxx',
+        action: 'http://localhost:3000/upload',
+        method:'post',
         parseResponse: () => {
         },
 

@@ -27,7 +27,7 @@
 </template>
 <script>
   import GIcon from './icon'
-  import {http} from './http'
+  import http from './http'
   export default {
     name: 'VPartsUploader',
     components: {
@@ -168,12 +168,7 @@
       },
 
       postRequest(formData, success, fail) {
-
-        http(this.method,this.action,{
-          success,
-          fail,
-          data: formData
-        })
+        http[this.method.toLowerCase()](this.action, {success, fail, data: formData})
       }
     }
   }
