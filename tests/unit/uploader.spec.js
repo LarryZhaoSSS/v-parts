@@ -10,38 +10,47 @@ describe('uploader.vue', () => {
   it('uploader存在.', () => {
     expect(Uploader).to.exist
   })
-  it('可以上传一个文件', () => {
-    http.post = (url,options)=>{
-     // setTimeout(()=>{
-     //   options.success(`{"id":"123"}`)
-     //
-     // },100)
-      console.log('aaaaa')
-    }
+  it('可以上传文件',(done)=>{
+    let stub = sinon.stub(http, 'post').callsFake((url, options) => {
+      setTimeout(function () {
+        options.success('{"id": "123123"}')
+      }, 100)
+    })
+
     const wrapper = mount(Uploader, {
       propsData: {
         name: 'file',
-        action: 'http://localhost:3000/upload',
-        method:'post',
-        parseResponse: () => {
+        action: '/upload',
+        method: 'post',
+        parseResponse: (response) => {
+          let object = JSON.parse(response)
+          return `/preview/${object.id}`
         },
-
-
+        fileList: []
       },
-      slots:{
-        default:`<button id="x">click</button>`
+      slots: {default: `<button id="x">click me</button>`},
+      listeners: {
+        'update:fileList': (fileList) => { wrapper.setProps({fileList}) },
+        'uploaded': () => {
+          expect(wrapper.find('use').exists()).to.eq(false)
+          expect(wrapper.props().fileList[0].url).to.eq('/preview/123123')
+          stub.restore()
+          done()
+        }
       }
     })
-    console.log(wrapper.html())
     wrapper.find('#x').trigger('click')
-    console.log(wrapper.html())
     let inputWrapper = wrapper.find('input[type="file"]')
     let input = inputWrapper.element
-    let file1 = new File(['xxx'],'xxx.txt');
-    let file2 = new File(['yyy'],'yyy.txt')
+    let file1 = new File(['xxxxxxxxx'], 'xxx.txt')
+
     const data = new DataTransfer()
     data.items.add(file1)
-    data.items.add(file2)
-    input.files = data.files
+    input.files = data.files;
+    console.log(wrapper.html())
+    expect(wrapper.find('input[type="file"]').exists()).to.eq(true)
+    expect(wrapper.find('use').exists()).to.eq(false)
+    done()
+
   })
 })

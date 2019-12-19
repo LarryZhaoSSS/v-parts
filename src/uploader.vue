@@ -117,6 +117,8 @@
         let fileListCopy = [...this.fileList]
         fileListCopy.splice(index, 1, copy)
         this.$emit('update:fileList', fileListCopy)
+        this.$emit('uploaded')
+
       },
       uploadFiles(rawFiles) {
         
