@@ -24,7 +24,10 @@
         <div class="box">3</div>
       </v-slides-item>
     </v-slides>
-  
+
+    <div style="margin:20px">
+      <v-table compact bordered  :columns="columns" :data-source="dataSource" @changeItem="changeItem" ></v-table>
+    </div>
   </div>
 </template>
 <style>
@@ -52,7 +55,7 @@
   import VSlides from './slider/slides'
   import VSlidesItem from './slider/slides-item'
   import db from './db'
-  
+  import VTable from './table'
 
   function ajax(parentId = 0) {
     return new Promise((success, fail) => {
@@ -78,7 +81,8 @@
       VPager,
       VCascade,
       VSlides,
-      VSlidesItem
+      VSlidesItem,
+      VTable
     },
     data() {
       return {
@@ -92,7 +96,26 @@
         currentPage: 1,
         source:[],
         selectedSource: [],
-        selectedSlide: undefined
+        selectedSlide: undefined,
+        columns:[
+          {
+            text:'姓名',
+            field:'name'
+          },
+          {
+            text:'分数',
+            field:'score'
+          }
+        ],
+        dataSource:[
+          {id:1,name:'frank',score:100},
+          {id:2,name:'frank2',score:95},
+          {id:3,name:'frank3',score:90},
+          {id:4,name:'frank4',score:86},
+          {id:5,name:'frank5',score:84},
+          {id:6,name:'frank6',score:82}
+        ],
+        selectedTableItem:[]
       };
     },
     methods: {
@@ -111,6 +134,17 @@
       //     updateSource(result) // 回调:把别人传给我的函数调用一下
       //   })
       // },
+      changeItem(obj) {
+        let {selected,item,index} = obj
+        console.log('---change--')
+        console.log(item)
+        if(selected) {
+          this.selectedTableItem.push(item)
+        } else {
+          let index = this.selectedTableItem.indexOf(item)
+          this.selectedTableItem.splice(index,1)
+        }
+      }
     },
     created() {
       ajax(0).then(result=>{
