@@ -26,7 +26,7 @@
     </v-slides>
 
     <div style="margin:20px">
-      <v-table compact bordered  :columns="columns" :data-source="dataSource" @changeItem="changeItem" ></v-table>
+      <v-table compact bordered  :columns="columns" :data-source="dataSource" :selectedItems.sync="selectedTableItems" ></v-table>
     </div>
   </div>
 </template>
@@ -115,7 +115,7 @@
           {id:5,name:'frank5',score:84},
           {id:6,name:'frank6',score:82}
         ],
-        selectedTableItem:[]
+        selectedTableItems:[]
       };
     },
     methods: {
@@ -134,16 +134,8 @@
       //     updateSource(result) // 回调:把别人传给我的函数调用一下
       //   })
       // },
-      changeItem(obj) {
-        let {selected,item,index} = obj
-        console.log('---change--')
-        console.log(item)
-        if(selected) {
-          this.selectedTableItem.push(item)
-        } else {
-          let index = this.selectedTableItem.indexOf(item)
-          this.selectedTableItem.splice(index,1)
-        }
+      updateSelectedItems(items) {
+        this.selectedTableItems = items
       }
     },
     created() {
