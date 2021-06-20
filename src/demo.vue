@@ -26,7 +26,7 @@
     </v-slides>
 
     <div style="margin:20px">
-      <v-table compact bordered  :columns="columns" :data-source="dataSource" :selectedItems.sync="selectedTableItems" ></v-table>
+      <v-table compact bordered  :columns="columns" :data-source="dataSource" :selectedItems.sync="selectedTableItems" :order-by.sync="orderBy" ></v-table>
     </div>
   </div>
 </template>
@@ -107,6 +107,10 @@
             field:'score'
           }
         ],
+        orderBy:{
+          // name:'asc',
+          score:'desc'
+        },
         dataSource:[
           {id:1,name:'frank',score:100},
           {id:2,name:'frank2',score:95},

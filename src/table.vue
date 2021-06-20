@@ -5,14 +5,20 @@
       <tr>
         <th><input ref="allChecked" :checked="areAllItemsSelected" type="checkbox" @change="onChangeAllItems"></th>
         <th v-if="numberVisible">#</th>
-        <th v-for="column in columns" :key="column.field">{{ column.text }}</th>
+        <th v-for="column in columns" :key="column.field">
+          <div class="v-parts-table-column">{{ column.text }}
+            <span v-if="column.field in orderBy" class="v-parts-table-sorter" @click="changeOrderBy(column.field)">
+            <g-icon name="asc" :class="{active:orderBy[column.field] === 'asc'}"></g-icon><g-icon name="desc"
+                                                                                                  :class="{active:orderBy[column.field] === 'desc'}"></g-icon></span>
+          </div>
+        </th>
       </tr>
       </thead>
       <tbody>
       <tr v-for="(item,index) in dataSource" :key="item.id">
         <td><input type="checkbox" :checked="inSelectedItems(item)" @change="onChangeItem(item,index,$event)"></td>
         <td v-if="numberVisible">{{ index + 1 }}</td>
-        <template v-for="column in columns" >
+        <template v-for="column in columns">
           <td :key="column.field">{{ item[column.field] }}</td>
         </template>
       </tr>
@@ -21,9 +27,18 @@
   </div>
 </template>
 <script>
+import GIcon from './icon'
+
 export default {
   name: "v-parts-table",
+  components: {
+    GIcon
+  },
   props: {
+    orderBy: {
+      type: Object,
+      default: () => ({}),
+    },
     striped: {
       type: Boolean,
       default: true
@@ -44,7 +59,7 @@ export default {
       type: Array,
       required: true,
       validator(array) {
-        if(array.filter(item=>item.id===undefined).length > 0) {
+        if (array.filter(item => item.id === undefined).length > 0) {
           return false
         }
         return true
@@ -59,16 +74,16 @@ export default {
       default: false
     }
   },
-  computed:{
+  computed: {
     areAllItemsSelected() {
-      let a = this.dataSource.map(item=>item.id).sort()
-      let b = this.selectedItems.map(item=>item.id).sort()
-      if(a.length != b.length) {
+      let a = this.dataSource.map(item => item.id).sort()
+      let b = this.selectedItems.map(item => item.id).sort()
+      if (a.length != b.length) {
         return false
       }
       let equal = true
-      for(let i=0;i<a.length;i++) {
-        if(a[i]!==b[i]) {
+      for (let i = 0; i < a.length; i++) {
+        if (a[i] !== b[i]) {
           equal = false
           break
         }
@@ -76,11 +91,11 @@ export default {
       return equal
     }
   },
-  watch:{
+  watch: {
     selectedItems() {
-      if(this.selectedItems.length === this.dataSource.length) {
+      if (this.selectedItems.length === this.dataSource.length) {
         this.$refs.allChecked.indeterminate = false
-      } else if(this.selectedItems.length === 0) {
+      } else if (this.selectedItems.length === 0) {
         this.$refs.allChecked.indeterminate = false
       } else {
         this.$refs.allChecked.indeterminate = true
@@ -88,8 +103,20 @@ export default {
     }
   },
   methods: {
+    changeOrderBy(key) {
+      const copy = JSON.parse(JSON.stringify(this.orderBy))
+      let oldValue = copy[key]
+      if (oldValue === 'asc') {
+        copy[key] = 'desc'
+      } else if (oldValue === 'desc') {
+        copy[key] = true
+      } else {
+        copy[key] = 'asc'
+      }
+      this.$emit('update:orderBy', copy)
+    },
     inSelectedItems(item) {
-     return  this.selectedItems.filter(i=>i.id === item.id).length > 0
+      return this.selectedItems.filter(i => i.id === item.id).length > 0
     },
     onChangeItem(item, index, e) {
       let selected = e.target.checked
@@ -97,7 +124,7 @@ export default {
       if (selected) {
         copy.push(item)
       } else {
-        copy = copy.filter(i=>i.id!==item.id)
+        copy = copy.filter(i => i.id !== item.id)
       }
       this.$emit('update:selectedItems', copy)
     },
@@ -151,6 +178,38 @@ export default {
 
           &:nth-child(even) {
             background: lighten($grey, 10%);
+          }
+        }
+      }
+    }
+
+    .v-parts-table-column {
+      display: flex;
+      align-items: center;
+
+      .v-parts-table-sorter {
+        display: inline-flex;
+        flex-direction: column;
+        margin: 0 4px;
+        cursor: pointer;
+
+        svg {
+          width: 10px;
+          height: 10px;
+          fill: $grey;
+
+          &.active {
+            fill: red;
+          }
+
+          &:first-child {
+            position: relative;
+            bottom: -1px;
+          }
+
+          &:nth-child(2) {
+            position: relative;
+            top: -1px;
           }
         }
       }
