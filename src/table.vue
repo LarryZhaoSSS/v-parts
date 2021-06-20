@@ -24,6 +24,9 @@
       </tr>
       </tbody>
     </table>
+    <div v-if="loading" class="v-parts-table-loading">
+      <g-icon name="loading"></g-icon>
+    </div>
   </div>
 </template>
 <script>
@@ -35,6 +38,10 @@ export default {
     GIcon
   },
   props: {
+    loading:{
+      type:Boolean,
+      default:false
+    },
     orderBy: {
       type: Object,
       default: () => ({}),
@@ -142,7 +149,7 @@ export default {
 
 .v-parts-table-wrapper {
   $grey: darken($grey, 10%);
-
+  position: relative;
   .v-table {
     width: 100%;
     border-collapse: collapse;
@@ -215,6 +222,24 @@ export default {
       }
     }
 
+  }
+
+  .v-parts-table-loading {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255,255,255,0.7);
+
+    svg {
+      @include spin;
+      height: 48px;
+      width: 48px;
+    }
   }
 }
 </style>

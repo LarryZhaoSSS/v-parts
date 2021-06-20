@@ -26,7 +26,7 @@
     </v-slides>
 
     <div style="margin:20px">
-      <v-table compact bordered  :columns="columns" :data-source="dataSource" :selectedItems.sync="selectedTableItems" :order-by.sync="orderBy" ></v-table>
+      <v-table compact bordered  :columns="columns" :data-source="dataSource" :selectedItems.sync="selectedTableItems" :order-by.sync="orderBy" :loading="tableLoading" @update:orderBy="handleOrderBy"></v-table>
     </div>
   </div>
 </template>
@@ -119,7 +119,8 @@
           {id:5,name:'frank5',score:84},
           {id:6,name:'frank6',score:82}
         ],
-        selectedTableItems:[]
+        selectedTableItems:[],
+        tableLoading:false
       };
     },
     methods: {
@@ -138,8 +139,12 @@
       //     updateSource(result) // 回调:把别人传给我的函数调用一下
       //   })
       // },
-      updateSelectedItems(items) {
-        this.selectedTableItems = items
+
+      handleOrderBy() {
+        this.tableLoading = true
+        setTimeout(()=>{
+          this.tableLoading = false
+        },300)
       }
     },
     created() {
