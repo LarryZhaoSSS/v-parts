@@ -1,29 +1,32 @@
 <template>
-  <div class="v-parts-table-wrapper">
-    <table class="v-table" :class="{bordered,compact,striped}">
-      <thead>
-      <tr>
-        <th><input ref="allChecked" :checked="areAllItemsSelected" type="checkbox" @change="onChangeAllItems"></th>
-        <th v-if="numberVisible">#</th>
-        <th v-for="column in columns" :key="column.field">
-          <div class="v-parts-table-column">{{ column.text }}
-            <span v-if="column.field in orderBy" class="v-parts-table-sorter" @click="changeOrderBy(column.field)">
+  <div class="v-parts-table-wrapper"  ref="wrapper">
+    <div :style="{height,overflow:'auto'}">
+      <table ref="table" class="v-table" :class="{bordered,compact,striped}">
+        <thead>
+        <tr>
+          <th><input ref="allChecked" :checked="areAllItemsSelected" type="checkbox" @change="onChangeAllItems"></th>
+          <th v-if="numberVisible">#</th>
+          <th v-for="column in columns" :key="column.field">
+            <div class="v-parts-table-column">{{ column.text }}
+              <span v-if="column.field in orderBy" class="v-parts-table-sorter" @click="changeOrderBy(column.field)">
             <g-icon name="asc" :class="{active:orderBy[column.field] === 'asc'}"></g-icon><g-icon name="desc"
                                                                                                   :class="{active:orderBy[column.field] === 'desc'}"></g-icon></span>
-          </div>
-        </th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(item,index) in dataSource" :key="item.id">
-        <td><input type="checkbox" :checked="inSelectedItems(item)" @change="onChangeItem(item,index,$event)"></td>
-        <td v-if="numberVisible">{{ index + 1 }}</td>
-        <template v-for="column in columns">
-          <td :key="column.field">{{ item[column.field] }}</td>
-        </template>
-      </tr>
-      </tbody>
-    </table>
+            </div>
+          </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item,index) in dataSource" :key="item.id">
+          <td><input type="checkbox" :checked="inSelectedItems(item)" @change="onChangeItem(item,index,$event)"></td>
+          <td v-if="numberVisible">{{ index + 1 }}</td>
+          <template v-for="column in columns">
+            <td :key="column.field">{{ item[column.field] }}</td>
+          </template>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
     <div v-if="loading" class="v-parts-table-loading">
       <g-icon name="loading"></g-icon>
     </div>
@@ -38,6 +41,9 @@ export default {
     GIcon
   },
   props: {
+    height:{
+      type:[String,Number]
+    },
     loading:{
       type:Boolean,
       default:false
@@ -109,7 +115,36 @@ export default {
       }
     }
   },
+  mounted() {
+    let table2 = this.$refs.table.cloneNode(true)
+    this.table2 = table2
+    table2.classList.add('v-parts-table-copy')
+    this.$refs.wrapper.appendChild(table2)
+    this.updateHeadersWidth()
+    this.onWindowResize = ()=> this.updateHeadersWidth()
+    window.addEventListener('resize',this.onWindowResize)
+  },
+  beforeDestroy() {
+    window.removeEventListener('resize',this.onWindowResize)
+    this.table2.remove()
+  },
   methods: {
+    updateHeadersWidth() {
+      let table2 = this.table2
+      const tableHeader = Array.from(this.$refs.table.children).filter(node=>node.tagName.toLowerCase()==='thead')[0]
+      let tableHeader2
+      Array.from(table2.children).map(node=>{
+        if(node.tagName.toLowerCase()!=='thead') {
+          node.remove()
+        } else {
+          tableHeader2 = node
+        }
+      })
+      Array.from(tableHeader.children[0].children).map((th,i)=>{
+        const {width} = th.getBoundingClientRect()
+        tableHeader2.children[0].children[i].style.width = width + 'px'
+      })
+    },
     changeOrderBy(key) {
       const copy = JSON.parse(JSON.stringify(this.orderBy))
       let oldValue = copy[key]
@@ -155,10 +190,8 @@ export default {
     border-collapse: collapse;
     border-spacing: 0;
     border-bottom: 1px solid $grey;
-
     &.bordered {
       border: 1px solid $grey;
-
       td, th {
         border: 1px solid $grey;
       }
@@ -240,6 +273,13 @@ export default {
       height: 48px;
       width: 48px;
     }
+  }
+  .v-parts-table-copy {
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    background: white;
   }
 }
 </style>

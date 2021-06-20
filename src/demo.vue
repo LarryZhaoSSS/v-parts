@@ -26,7 +26,7 @@
     </v-slides>
 
     <div style="margin:20px">
-      <v-table compact bordered  :columns="columns" :data-source="dataSource" :selectedItems.sync="selectedTableItems" :order-by.sync="orderBy" :loading="tableLoading" @update:orderBy="handleOrderBy"></v-table>
+      <v-table compact bordered  :columns="columns" :data-source="dataSource" :selectedItems.sync="selectedTableItems" :order-by.sync="orderBy" height="400px" :loading="tableLoading" @update:orderBy="handleOrderBy"></v-table>
     </div>
   </div>
 </template>
@@ -117,7 +117,34 @@
           {id:3,name:'frank3',score:90},
           {id:4,name:'frank4',score:86},
           {id:5,name:'frank5',score:84},
-          {id:6,name:'frank6',score:82}
+          {id:6,name:'frank6',score:82},
+          {id:41,name:'frank4',score:86},
+          {id:51,name:'frank5',score:84},
+          {id:61,name:'frank6',score:82},
+          {id:42,name:'frank4',score:86},
+          {id:52,name:'frank5',score:84},
+          {id:62,name:'frank6',score:82},
+          {id:43,name:'frank4',score:86},
+          {id:53,name:'frank5',score:84},
+          {id:63,name:'frank6',score:82},
+          {id:44,name:'frank4',score:86},
+          {id:54,name:'frank5',score:84},
+          {id:64,name:'frank6',score:82},
+          {id:45,name:'frank4',score:86},
+          {id:55,name:'frank5',score:84},
+          {id:65,name:'frank6',score:82},
+          {id:46,name:'frank4',score:86},
+          {id:56,name:'frank5',score:84},
+          {id:66,name:'frank6',score:82},
+          {id:47,name:'frank4',score:86},
+          {id:57,name:'frank5',score:84},
+          {id:67,name:'frank6',score:82},
+          {id:48,name:'frank4',score:86},
+          {id:58,name:'frank5',score:84},
+          {id:68,name:'frank6',score:82},
+          {id:49,name:'frank4',score:86},
+          {id:59,name:'frank5',score:84},
+          {id:69,name:'frank6',score:82}
         ],
         selectedTableItems:[],
         tableLoading:false
