@@ -1,28 +1,100 @@
 <template>
-  <div class="v-parts-table-wrapper"  ref="wrapper">
-    <div :style="{height,overflow:'auto'}">
-      <table ref="table" class="v-table" :class="{bordered,compact,striped}">
+  <div class="v-parts-table-wrapper" ref="wrapper">
+    <div :style="{ height, overflow: 'auto' }" ref="tableWrapper">
+      <table
+        ref="table"
+        class="v-table"
+        :class="{ bordered, compact, striped }"
+      >
         <thead>
-        <tr>
-          <th><input ref="allChecked" :checked="areAllItemsSelected" type="checkbox" @change="onChangeAllItems"></th>
-          <th v-if="numberVisible">#</th>
-          <th v-for="column in columns" :key="column.field">
-            <div class="v-parts-table-column">{{ column.text }}
-              <span v-if="column.field in orderBy" class="v-parts-table-sorter" @click="changeOrderBy(column.field)">
-            <g-icon name="asc" :class="{active:orderBy[column.field] === 'asc'}"></g-icon><g-icon name="desc"
-                                                                                                  :class="{active:orderBy[column.field] === 'desc'}"></g-icon></span>
-            </div>
-          </th>
-        </tr>
+          <tr>
+            <th
+              v-if="expandField"
+              :style="{ width: '50px' }"
+              class="v-parts-table-center"
+            ></th>
+            <th
+              v-if="checkable"
+              :style="{ width: '50px' }"
+              class="v-parts-table-center"
+            >
+              <input
+                ref="allChecked"
+                :checked="areAllItemsSelected"
+                type="checkbox"
+                @change="onChangeAllItems"
+              />
+            </th>
+            <th :style="{ width: '50px' }" v-if="numberVisible">#</th>
+            <th
+              :style="{ width: column.width + 'px' }"
+              v-for="column in columns"
+              :key="column.field"
+            >
+              <div class="v-parts-table-column">
+                {{ column.text }}
+                <span
+                  v-if="column.field in orderBy"
+                  class="v-parts-table-sorter"
+                  @click="changeOrderBy(column.field)"
+                >
+                  <g-icon
+                    name="asc"
+                    :class="{ active: orderBy[column.field] === 'asc' }"
+                  ></g-icon
+                  ><g-icon
+                    name="desc"
+                    :class="{ active: orderBy[column.field] === 'desc' }"
+                  ></g-icon
+                ></span>
+              </div>
+            </th>
+            <th ref="actionsRef" v-if="$scopedSlots.default"></th>
+          </tr>
         </thead>
         <tbody>
-        <tr v-for="(item,index) in dataSource" :key="item.id">
-          <td><input type="checkbox" :checked="inSelectedItems(item)" @change="onChangeItem(item,index,$event)"></td>
-          <td v-if="numberVisible">{{ index + 1 }}</td>
-          <template v-for="column in columns">
-            <td :key="column.field">{{ item[column.field] }}</td>
+          <template v-for="(item, index) in dataSource">
+            <tr :key="item.id">
+              <td
+                v-if="expandField"
+                :style="{ width: '50px' }"
+                class="v-parts-table-center"
+              >
+                <g-icon
+                  class="v-parts-table-expand-icon"
+                  name="right"
+                  @click="expandItem(item.id)"
+                />
+              </td>
+              <td
+                v-if="checkable"
+                :style="{ width: '50px' }"
+                class="v-parts-table-center"
+              >
+                <input
+                  type="checkbox"
+                  :checked="inSelectedItems(item)"
+                  @change="onChangeItem(item, index, $event)"
+                />
+              </td>
+              <td :style="{ width: '50px' }" v-if="numberVisible">
+                {{ index + 1 }}
+              </td>
+              <template v-for="column in columns">
+                <td :style="{ width: column.width + 'px' }" :key="column.field">
+                  {{ item[column.field] }}
+                </td>
+              </template>
+              <td v-if="$scopedSlots.default" >
+                <div ref="actions"><slot :item="item"></slot></div>
+              </td>
+            </tr>
+            <tr v-if="inExpandedIds(item.id)" :key="`${item.id}-expand`">
+              <td :colspan="columns.length + expandedCellColSpan">
+                {{ item[expandField] || "空" }}
+              </td>
+            </tr>
           </template>
-        </tr>
         </tbody>
       </table>
     </div>
@@ -33,7 +105,7 @@
   </div>
 </template>
 <script>
-import GIcon from './icon'
+import GIcon from "./icon";
 
 export default {
   name: "v-parts-table",
@@ -41,16 +113,19 @@ export default {
     GIcon
   },
   props: {
-    height:{
-      type:[String,Number]
+    height: {
+      type: Number
     },
-    loading:{
-      type:Boolean,
-      default:false
+    expandField: {
+      type: String
+    },
+    loading: {
+      type: Boolean,
+      default: false
     },
     orderBy: {
       type: Object,
-      default: () => ({}),
+      default: () => ({})
     },
     striped: {
       type: Boolean,
@@ -73,9 +148,9 @@ export default {
       required: true,
       validator(array) {
         if (array.filter(item => item.id === undefined).length > 0) {
-          return false
+          return false;
         }
-        return true
+        return true;
       }
     },
     numberVisible: {
@@ -85,99 +160,125 @@ export default {
     bordered: {
       type: Boolean,
       default: false
+    },
+    checkable: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
     areAllItemsSelected() {
-      let a = this.dataSource.map(item => item.id).sort()
-      let b = this.selectedItems.map(item => item.id).sort()
+      let a = this.dataSource.map(item => item.id).sort();
+      let b = this.selectedItems.map(item => item.id).sort();
       if (a.length != b.length) {
-        return false
+        return false;
       }
-      let equal = true
+      let equal = true;
       for (let i = 0; i < a.length; i++) {
         if (a[i] !== b[i]) {
-          equal = false
-          break
+          equal = false;
+          break;
         }
       }
-      return equal
+      return equal;
+    },
+    expandedCellColSpan() {
+      let result = 0;
+      if (this.checkable) {
+        result += 1;
+      }
+      if (this.expandField) {
+        result += 1;
+      }
+      return result;
     }
   },
   watch: {
     selectedItems() {
       if (this.selectedItems.length === this.dataSource.length) {
-        this.$refs.allChecked.indeterminate = false
+        this.$refs.allChecked.indeterminate = false;
       } else if (this.selectedItems.length === 0) {
-        this.$refs.allChecked.indeterminate = false
+        this.$refs.allChecked.indeterminate = false;
       } else {
-        this.$refs.allChecked.indeterminate = true
+        this.$refs.allChecked.indeterminate = true;
       }
     }
+  },
+  data() {
+    return {
+      expandedIds: []
+    };
   },
   mounted() {
-    let table2 = this.$refs.table.cloneNode(true)
-    this.table2 = table2
-    table2.classList.add('v-parts-table-copy')
-    this.$refs.wrapper.appendChild(table2)
-    this.updateHeadersWidth()
-    this.onWindowResize = ()=> this.updateHeadersWidth()
-    window.addEventListener('resize',this.onWindowResize)
+    let table2 = this.$refs.table.cloneNode(false);
+    this.table2 = table2;
+    table2.classList.add("v-parts-table-copy");
+    let tHead = this.$refs.table.children[0];
+    let { height } = tHead.getBoundingClientRect();
+    this.$refs.tableWrapper.style.marginTop = height + "px";
+    this.$refs.tableWrapper.style.height = this.height - height + "px";
+    table2.appendChild(tHead);
+    this.$refs.wrapper.appendChild(table2);
+    if(this.$scopedSlots.default){
+      let div = this.$refs.actions[0]
+      let {width} = div.getBoundingClientRect()
+      console.log(width)
+      let parent = div.parentNode
+      let styles = getComputedStyle(parent)
+      let paddingLeft = styles.getPropertyValue('padding-left')
+      let paddingRight = styles.getPropertyValue('padding-right')
+      let borderLeft = styles.getPropertyValue('border-left-width')
+      let borderRight= styles.getPropertyValue('border-right-width')
+      let width2 = width + parseInt(paddingLeft)  + parseInt(paddingRight)  + parseInt(borderLeft)  + parseInt(borderRight) + 'px'
+      this.$refs.actionsRef.style.width = width2
+      this.$refs.actions.map(div=>{
+        div.parentNode.style.width = width2
+      })
+    }
   },
-  beforeDestroy() {
-    window.removeEventListener('resize',this.onWindowResize)
-    this.table2.remove()
-  },
+  beforeDestroy() {},
   methods: {
-    updateHeadersWidth() {
-      let table2 = this.table2
-      const tableHeader = Array.from(this.$refs.table.children).filter(node=>node.tagName.toLowerCase()==='thead')[0]
-      let tableHeader2
-      Array.from(table2.children).map(node=>{
-        if(node.tagName.toLowerCase()!=='thead') {
-          node.remove()
-        } else {
-          tableHeader2 = node
-        }
-      })
-      Array.from(tableHeader.children[0].children).map((th,i)=>{
-        const {width} = th.getBoundingClientRect()
-        tableHeader2.children[0].children[i].style.width = width + 'px'
-      })
-    },
     changeOrderBy(key) {
-      const copy = JSON.parse(JSON.stringify(this.orderBy))
-      let oldValue = copy[key]
-      if (oldValue === 'asc') {
-        copy[key] = 'desc'
-      } else if (oldValue === 'desc') {
-        copy[key] = true
+      const copy = JSON.parse(JSON.stringify(this.orderBy));
+      let oldValue = copy[key];
+      if (oldValue === "asc") {
+        copy[key] = "desc";
+      } else if (oldValue === "desc") {
+        copy[key] = true;
       } else {
-        copy[key] = 'asc'
+        copy[key] = "asc";
       }
-      this.$emit('update:orderBy', copy)
+      this.$emit("update:orderBy", copy);
     },
     inSelectedItems(item) {
-      return this.selectedItems.filter(i => i.id === item.id).length > 0
+      return this.selectedItems.filter(i => i.id === item.id).length > 0;
     },
     onChangeItem(item, index, e) {
-      let selected = e.target.checked
-      let copy = JSON.parse(JSON.stringify(this.selectedItems))
+      let selected = e.target.checked;
+      let copy = JSON.parse(JSON.stringify(this.selectedItems));
       if (selected) {
-        copy.push(item)
+        copy.push(item);
       } else {
-        copy = copy.filter(i => i.id !== item.id)
+        copy = copy.filter(i => i.id !== item.id);
       }
-      this.$emit('update:selectedItems', copy)
+      this.$emit("update:selectedItems", copy);
     },
     onChangeAllItems(e) {
-      let selected = e.target.checked
-      this.$emit('update:selectedItems', selected ? this.dataSource : [])
+      let selected = e.target.checked;
+      this.$emit("update:selectedItems", selected ? this.dataSource : []);
+    },
+    expandItem(id) {
+      if (this.inExpandedIds(id)) {
+        this.expandedIds.splice(this.expandedIds.indexOf(id), 1);
+      } else {
+        this.expandedIds.push(id);
+      }
+    },
+    inExpandedIds(id) {
+      return this.expandedIds.includes(id);
     }
   }
-
-
-}
+};
 </script>
 <style scoped lang="scss">
 @import "../styles/_var";
@@ -192,21 +293,23 @@ export default {
     border-bottom: 1px solid $grey;
     &.bordered {
       border: 1px solid $grey;
-      td, th {
+      td,
+      th {
         border: 1px solid $grey;
       }
     }
-
-    &.compact {
-      td, th {
-        padding: 4px;
-      }
-    }
-
-    td, th {
+    td,
+    th {
       border-bottom: 1px solid $grey;
       text-align: left;
       padding: 8px;
+    }
+
+    &.compact {
+      td,
+      th {
+        padding: 4px;
+      }
     }
 
     &.striped {
@@ -254,19 +357,21 @@ export default {
         }
       }
     }
-
+    .v-parts-table-center {
+      text-align: center;
+    }
   }
 
   .v-parts-table-loading {
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(255,255,255,0.7);
+    background: rgba(255, 255, 255, 0.7);
 
     svg {
       @include spin;
@@ -276,10 +381,15 @@ export default {
   }
   .v-parts-table-copy {
     position: absolute;
-    top:0;
+    top: 0;
     left: 0;
     width: 100%;
     background: white;
+  }
+  .v-parts-table-expand-icon {
+    width: 10px;
+    height: 10px;
+    cursor: pointer;
   }
 }
 </style>
