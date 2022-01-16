@@ -13,38 +13,44 @@
     <!--                  :selected.sync="selectedSource" :load-data="loadData"></v-cascade>-->
     <!--    </div>-->
 
-    <v-slides class="slide-wrapper" :selected.sync="selectedSlide">
-      <v-slides-item name="1">
-        <div class="box">1</div>
-      </v-slides-item>
-      <v-slides-item name="2">
-        <div class="box">2</div>
-      </v-slides-item>
-      <v-slides-item name="3">
-        <div class="box">3</div>
-      </v-slides-item>
-    </v-slides>
+<!--    <v-slides class="slide-wrapper" :selected.sync="selectedSlide">-->
+<!--      <v-slides-item name="1">-->
+<!--        <div class="box">1</div>-->
+<!--      </v-slides-item>-->
+<!--      <v-slides-item name="2">-->
+<!--        <div class="box">2</div>-->
+<!--      </v-slides-item>-->
+<!--      <v-slides-item name="3">-->
+<!--        <div class="box">3</div>-->
+<!--      </v-slides-item>-->
+<!--    </v-slides>-->
 
-    <div style="margin:20px">
-      <v-table
-        compact
-        bordered
-        expand-field="description"
-        checkable
-        :columns="columns"
-        :data-source="dataSource"
-        :selectedItems.sync="selectedTableItems"
-        :order-by.sync="orderBy"
-        :height="400"
-        :loading="tableLoading"
-        @update:orderBy="handleOrderBy"
-      >
-        <template slot-scope="record">
-          <button>编辑</button>
-          <button>查看</button>
-        </template>
-      </v-table>
+<!--    <div style="margin:20px">-->
+<!--      <v-table-->
+<!--        compact-->
+<!--        bordered-->
+<!--        expand-field="description"-->
+<!--        checkable-->
+<!--        :columns="columns"-->
+<!--        :data-source="dataSource"-->
+<!--        :selectedItems.sync="selectedTableItems"-->
+<!--        :order-by.sync="orderBy"-->
+<!--        :height="400"-->
+<!--        :loading="tableLoading"-->
+<!--        @update:orderBy="handleOrderBy"-->
+<!--      >-->
+<!--        <template slot-scope="record">-->
+<!--          <button>编辑</button>-->
+<!--          <button>查看</button>-->
+<!--        </template>-->
+<!--      </v-table>-->
+<!--    </div>-->
+    <div >
+      <v-sticky :distance="100">
+        <div style="border:1px solid red;">sticky content</div>
+      </v-sticky>
     </div>
+    <p v-for="item of 100" :key="item">段落{{item}}</p>
   </div>
 </template>
 <style>
@@ -73,7 +79,7 @@ import VSlides from "./slider/slides";
 import VSlidesItem from "./slider/slides-item";
 import db from "./db";
 import VTable from "./table";
-
+import VSticky from './Sticky'
 function ajax(parentId = 0) {
   return new Promise((success, fail) => {
     setTimeout(() => {
@@ -99,7 +105,8 @@ export default {
     VCascade,
     VSlides,
     VSlidesItem,
-    VTable
+    VTable,
+    VSticky
   },
   data() {
     return {
